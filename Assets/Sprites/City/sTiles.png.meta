@@ -1,0 +1,1310 @@
+fileFormatVersion: 2
+guid: 4105f66528daee34eb23bebca0bce9f7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4006012578889292976
+    second: sTiles_0
+  - first:
+      213: 622990384404355452
+    second: sTiles_1
+  - first:
+      213: -2558430627679157086
+    second: sTiles_2
+  - first:
+      213: -4608769073915086549
+    second: sTiles_3
+  - first:
+      213: -5817654867367981918
+    second: sTiles_4
+  - first:
+      213: -1700062573527357152
+    second: sTiles_5
+  - first:
+      213: 590907186782781168
+    second: sTiles_6
+  - first:
+      213: -4434059215166758472
+    second: sTiles_7
+  - first:
+      213: 397068169171969456
+    second: sTiles_8
+  - first:
+      213: -6698650968138604564
+    second: sTiles_9
+  - first:
+      213: 4171689562641036935
+    second: sTiles_10
+  - first:
+      213: -4557120199206714774
+    second: sTiles_11
+  - first:
+      213: 7525883651247528496
+    second: sTiles_12
+  - first:
+      213: -6679398331347896541
+    second: sTiles_13
+  - first:
+      213: 2670260148457540582
+    second: sTiles_14
+  - first:
+      213: -7070820911419404827
+    second: sTiles_15
+  - first:
+      213: -3158990599977788912
+    second: sTiles_16
+  - first:
+      213: -6355742598414401535
+    second: sTiles_17
+  - first:
+      213: -7273587136355348952
+    second: sTiles_18
+  - first:
+      213: 3343861404299284452
+    second: sTiles_19
+  - first:
+      213: -2454433979646085294
+    second: sTiles_20
+  - first:
+      213: -1876618671392498955
+    second: sTiles_21
+  - first:
+      213: 8326390907546373843
+    second: sTiles_22
+  - first:
+      213: 8023529144864415376
+    second: sTiles_23
+  - first:
+      213: 1898602773744195315
+    second: sTiles_24
+  - first:
+      213: -6720755135693235008
+    second: sTiles_25
+  - first:
+      213: 4289949110178764275
+    second: sTiles_26
+  - first:
+      213: -2987638805315089610
+    second: sTiles_27
+  - first:
+      213: -4187042380128186218
+    second: sTiles_28
+  - first:
+      213: -31579473874501896
+    second: sTiles_29
+  - first:
+      213: -3321296635988148578
+    second: sTiles_30
+  - first:
+      213: -1677476398021620011
+    second: sTiles_31
+  - first:
+      213: 5134612331701924877
+    second: sTiles_32
+  - first:
+      213: -8028916330823947722
+    second: sTiles_33
+  - first:
+      213: -7907630154683450168
+    second: sTiles_34
+  - first:
+      213: -4338714392555863314
+    second: sTiles_35
+  - first:
+      213: -4712309754037338036
+    second: sTiles_36
+  - first:
+      213: 1633735762083254836
+    second: sTiles_37
+  - first:
+      213: 3011020173093695499
+    second: sTiles_38
+  - first:
+      213: 1940640510763877013
+    second: sTiles_39
+  - first:
+      213: -139662205035657120
+    second: sTiles_40
+  - first:
+      213: 1474834200589549404
+    second: sTiles_41
+  - first:
+      213: 8367409789321505208
+    second: sTiles_42
+  - first:
+      213: -2270724650619337029
+    second: sTiles_43
+  - first:
+      213: 540897896643362651
+    second: sTiles_44
+  - first:
+      213: -2663885964410452426
+    second: sTiles_45
+  - first:
+      213: -4357908050887114197
+    second: sTiles_46
+  - first:
+      213: -8371016135230220694
+    second: sTiles_47
+  - first:
+      213: 3557927450037569943
+    second: sTiles_48
+  - first:
+      213: -4002078843922147592
+    second: sTiles_49
+  - first:
+      213: 2094034733833683110
+    second: sTiles_50
+  - first:
+      213: -6345719247949408045
+    second: sTiles_51
+  - first:
+      213: 5846353912100687877
+    second: sTiles_52
+  - first:
+      213: 6670351256655039341
+    second: sTiles_53
+  - first:
+      213: -3422824136852275503
+    second: sTiles_54
+  - first:
+      213: 3627640927711355032
+    second: sTiles_55
+  - first:
+      213: -4815837887809769804
+    second: sTiles_56
+  - first:
+      213: 6860916313402933914
+    second: sTiles_57
+  - first:
+      213: -6952644113748399437
+    second: sTiles_58
+  - first:
+      213: 336062232561415953
+    second: sTiles_59
+  - first:
+      213: -8664539585530402547
+    second: sTiles_60
+  - first:
+      213: 7088616512025236697
+    second: sTiles_61
+  - first:
+      213: -5425873766774525740
+    second: sTiles_62
+  - first:
+      213: 7415350093457225152
+    second: sTiles_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 50
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sTiles_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 313
+        width: 48
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bc517a3737389730800000000000000
+      internalID: 4006012578889292976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 337
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c79d7e0347e45a800800000000000000
+      internalID: 622990384404355452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_3
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 263
+        width: 72
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b293c7112fc5a00c0800000000000000
+      internalID: -4608769073915086549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_4
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 263
+        width: 72
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ac85bca8b9834fa0800000000000000
+      internalID: -5817654867367981918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_5
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 251
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 19, y: 26.5}
+        - {x: -20, y: 26.5}
+        - {x: -19, y: 9.5}
+        - {x: 19, y: 9.5}
+      - - {x: 12, y: -27.5}
+        - {x: 20, y: -26.5}
+        - {x: 19, y: 8.5}
+        - {x: 18, y: -9.5}
+        - {x: 12, y: -9.5}
+      - - {x: -6, y: -27.5}
+        - {x: 6, y: -27.5}
+        - {x: 6, y: -8.5}
+        - {x: -6, y: -8.5}
+      - - {x: -20, y: -24.5}
+        - {x: -13, y: -27.5}
+        - {x: -13, y: -9.5}
+        - {x: -18, y: -9.5}
+        - {x: -19, y: 7.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02927f0c81a2868e0800000000000000
+      internalID: -1700062573527357152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_6
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 192
+        width: 36
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0feb963a4f2533800800000000000000
+      internalID: 590907186782781168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_7
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 216
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b120fee2ae0772c0800000000000000
+      internalID: -4434059215166758472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_8
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 227
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b52c17656ba28500800000000000000
+      internalID: 397068169171969456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_9
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 227
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cef95c97f6c9903a0800000000000000
+      internalID: -6698650968138604564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_10
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 227
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7867c6efd81d4e930800000000000000
+      internalID: 4171689562641036935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 216
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a62c68fc25bd1c0c0800000000000000
+      internalID: -4557120199206714774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_12
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 192
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03a57859e4f417860800000000000000
+      internalID: 7525883651247528496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_13
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 216
+        width: 6
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 327fbaa4b920e43a0800000000000000
+      internalID: -6679398331347896541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_14
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 216
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 1.5, y: -0.5}
+        - {x: -1.5, y: -0.5}
+        - {x: -1.5, y: -11.5}
+        - {x: 1.5, y: -11.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eb81b6157bae0520800000000000000
+      internalID: 2670260148457540582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_15
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 191
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed417808d56fdd90800000000000000
+      internalID: -7070820911419404827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_16
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 216
+        width: 6
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a968f49c20924d0800000000000000
+      internalID: -3158990599977788912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_17
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 192
+        width: 19
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10001b9e7cddbc7a0800000000000000
+      internalID: -6355742598414401535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_18
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 192
+        width: 19
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e40be59070f0b90800000000000000
+      internalID: -7273587136355348952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_19
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 192
+        width: 10
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4efc56d0b38c76e20800000000000000
+      internalID: 3343861404299284452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_20
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 192
+        width: 10
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 257fb86bc4910fdd0800000000000000
+      internalID: -2454433979646085294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_21
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 155
+        width: 58
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fad8c8d249e4f5e0800000000000000
+      internalID: -1876618671392498955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 191
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f555b09cf5f88b30800000000000000
+      internalID: 4289949110178764275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 155
+        width: 37
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63b8504f556c986d0800000000000000
+      internalID: -2987638805315089610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_36
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 167
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c400ffede338a9eb0800000000000000
+      internalID: -4712309754037338036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_47
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 167
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a661a823d2d24db80800000000000000
+      internalID: -8371016135230220694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_57
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 360
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a92801e490fd63f50800000000000000
+      internalID: 6860916313402933914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_58
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bae056e30f338f90800000000000000
+      internalID: -6952644113748399437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_59
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1177f3ae1dee9a400800000000000000
+      internalID: 336062232561415953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_60
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d096626572f51c780800000000000000
+      internalID: -8664539585530402547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_61
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d49b3c1923df5260800000000000000
+      internalID: 7088616512025236697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_62
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d03b4f7e8c63b4b0800000000000000
+      internalID: -5425873766774525740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_63
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 3
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c57dad2f9d98e660800000000000000
+      internalID: 7415350093457225152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 337
+        width: 34
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478fde082dc7f0d44906641cded4baa7
+      internalID: -2558430627679157086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_22
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 323
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27a2b8d329fc084684e8233de8589ec
+      internalID: 8326390907546373843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_23
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 312
+        width: 11
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a20e520fe172c04187b3e04cdff2f39
+      internalID: 8023529144864415376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_24
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 312
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792e99543f7258840bfcbe3653433eeb
+      internalID: 1898602773744195315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_25
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 312
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a352c5ca3f71a74595a964fbdb72dbf
+      internalID: -6720755135693235008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_29
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 288
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ea7b6f2d140ea46a3b06e41ec7fbc2
+      internalID: -31579473874501896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 264
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53fe3a239e60efc4eb319ad3d5f0c10c
+      internalID: -4187042380128186218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_30
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 264
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d012dc741f4d8043ab72062df28011d
+      internalID: -3321296635988148578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sTiles_31
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e443b71b694ad084c885416b335c3d9b
+      internalID: -1677476398021620011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8b042b427d1951b43b878d8c1683bef1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      sTiles_0: 4006012578889292976
+      sTiles_1: 622990384404355452
+      sTiles_10: 4171689562641036935
+      sTiles_11: -4557120199206714774
+      sTiles_12: 7525883651247528496
+      sTiles_13: -6679398331347896541
+      sTiles_14: 2670260148457540582
+      sTiles_15: -7070820911419404827
+      sTiles_16: -3158990599977788912
+      sTiles_17: -6355742598414401535
+      sTiles_18: -7273587136355348952
+      sTiles_19: 3343861404299284452
+      sTiles_2: -2558430627679157086
+      sTiles_20: -2454433979646085294
+      sTiles_21: -1876618671392498955
+      sTiles_22: 8326390907546373843
+      sTiles_23: 8023529144864415376
+      sTiles_24: 1898602773744195315
+      sTiles_25: -6720755135693235008
+      sTiles_26: 4289949110178764275
+      sTiles_27: -2987638805315089610
+      sTiles_28: -4187042380128186218
+      sTiles_29: -31579473874501896
+      sTiles_3: -4608769073915086549
+      sTiles_30: -3321296635988148578
+      sTiles_31: -1677476398021620011
+      sTiles_32: 5134612331701924877
+      sTiles_33: -8028916330823947722
+      sTiles_34: -7907630154683450168
+      sTiles_35: -4338714392555863314
+      sTiles_36: -4712309754037338036
+      sTiles_37: 1633735762083254836
+      sTiles_38: 3011020173093695499
+      sTiles_39: 1940640510763877013
+      sTiles_4: -5817654867367981918
+      sTiles_40: -139662205035657120
+      sTiles_41: 1474834200589549404
+      sTiles_42: 8367409789321505208
+      sTiles_43: -2270724650619337029
+      sTiles_44: 540897896643362651
+      sTiles_45: -2663885964410452426
+      sTiles_46: -4357908050887114197
+      sTiles_47: -8371016135230220694
+      sTiles_48: 3557927450037569943
+      sTiles_49: -4002078843922147592
+      sTiles_5: -1700062573527357152
+      sTiles_50: 2094034733833683110
+      sTiles_51: -6345719247949408045
+      sTiles_52: 5846353912100687877
+      sTiles_53: 6670351256655039341
+      sTiles_54: -3422824136852275503
+      sTiles_55: 3627640927711355032
+      sTiles_56: -4815837887809769804
+      sTiles_57: 6860916313402933914
+      sTiles_58: -6952644113748399437
+      sTiles_59: 336062232561415953
+      sTiles_6: 590907186782781168
+      sTiles_60: -8664539585530402547
+      sTiles_61: 7088616512025236697
+      sTiles_62: -5425873766774525740
+      sTiles_63: 7415350093457225152
+      sTiles_7: -4434059215166758472
+      sTiles_8: 397068169171969456
+      sTiles_9: -6698650968138604564
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
