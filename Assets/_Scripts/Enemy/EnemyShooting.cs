@@ -11,9 +11,16 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private Animator muzzleFlashAnimator;
     [SerializeField] private AudioClip shotSound;
 
+    [Header("Weapon Type")]
+    [SerializeField] private bool isShotgun = false;
+    [SerializeField] private int pelletCount = 5;
+
     [Header("Shooting")]
     [SerializeField] private float fireRate = 1f;
-    [SerializeField] private int poolSize = 6;
+    [SerializeField] private int poolSize = 10;
+
+    [Header("Accuracy")]
+    [SerializeField] private float spreadAngle = 15f;
 
     [Header("Optional")]
     [SerializeField] private bool requireLineOfSight = false;
@@ -97,22 +104,31 @@ public class EnemyShooting : MonoBehaviour
 
     private void Fire()
     {
-        Projectile p = GetPooledProjectile();
-        if (p == null)
+        //Xác định số lượng đạn cần bắn
+        int bulletsToFire = isShotgun ? pelletCount : 1;
+
+        for (int i = 0; i < bulletsToFire; i++)
         {
-            //tạo đạn mới nếu hết Pool
-            var go = Instantiate(projectilePrefab.gameObject, firePoint.position, firePoint.rotation);
-            p = go.GetComponent<Projectile>();
-        }
-        else
-        {
-            //đưa đạn cũ về vị trí và Active nó
-            p.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+            Projectile p = GetPooledProjectile();
+            if (p == null)
+            {
+                // Nếu hết pool thì tạo mới
+                var go = Instantiate(projectilePrefab.gameObject, firePoint.position, firePoint.rotation);
+                p = go.GetComponent<Projectile>();
+            }
+
+            // Mỗi viên đạn trong vòng lặp sẽ có một góc lệch ngẫu nhiên riêng
+            float currentSpread = Random.Range(-spreadAngle, spreadAngle);
+            Quaternion finalRotation = firePoint.rotation * Quaternion.Euler(0, 0, currentSpread);
+
+            // Thiết lập vị trí và góc xoay ĐÃ LỆCH cho đạn
+            p.transform.SetPositionAndRotation(firePoint.position, finalRotation);
             p.gameObject.SetActive(true);
+
+            p.ShootBullet();
         }
 
-        p.ShootBullet(firePoint);
-        muzzleFlashAnimator.SetTrigger("shoot");
+        if (muzzleFlashAnimator != null) muzzleFlashAnimator.SetTrigger("shoot");
         SoundManager.Instance?.PlaySound(shotSound);
     }
 

@@ -19,6 +19,12 @@ namespace TopDown.Shooting
 
         private Coroutine reloadCoroutine;
 
+        [Header("Accuracy")]
+        [Tooltip("Accuracy rating: 10 = perfect, 1 = very inaccurate.")]
+        [Range(1f, 10f)][SerializeField] private float accuracyRating = 10f;
+        [Tooltip("Max spread by degree when accuracy = 1/10.")]
+        [SerializeField] private float maxSpreadDegrees = 30f;
+
         [Header("References")]
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private Transform[] firePoints;
@@ -155,22 +161,30 @@ namespace TopDown.Shooting
                 return;
             }
 
+            float spread = Mathf.Lerp(maxSpreadDegrees, 0f, accuracyRating / 10f);
+
             //bắn từ các điểm firePoints
             foreach (Transform firePoint in firePoints)
             {
                 Projectile p = GetPooledBullet();
+                //Tính độ lệch ngẫu nhiên
+                float zOffset = Random.Range(-spread * 0.5f, spread * 0.5f);
+
+                //Cộng độ lệch vào góc quay của firePoint
+                Quaternion finalRotation = firePoint.rotation * Quaternion.Euler(0f, 0f, zOffset);
+
                 if (p == null)
                 {
                     //hết pool
-                    GameObject go = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                    GameObject go = Instantiate(bulletPrefab, firePoint.position, finalRotation);
                     p = go.GetComponent<Projectile>();
                 }
                 else
                 {
-                    p.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+                    p.transform.SetPositionAndRotation(firePoint.position, finalRotation);
                     p.gameObject.SetActive(true);
                 }
-                p.ShootBullet(firePoint);
+                p.ShootBullet();
             }
 
             muzzleFlashAnimator.SetTrigger("shoot");

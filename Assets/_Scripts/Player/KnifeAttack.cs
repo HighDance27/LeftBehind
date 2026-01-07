@@ -60,10 +60,10 @@ public class KnifeAttack : MonoBehaviour
         }
     }
 
-    // private void OnDrawGizmosSelected()
-    // {
-    //     if (attackPoint == null) return;
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawWireSphere(attackPoint.position, range);
-    // }
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, range);
+    }
 }

@@ -18,6 +18,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject lobbyPanel;
     public GameObject roomPanel;
     public GameObject editPanel;
+    public GameObject levelPanel;
 
     public Text roomName;
     public Text hostText;
@@ -43,6 +44,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        if (!PhotonNetwork.IsConnected)
+        {
+            // Nếu vào Scene mà không có mạng, Đá về Menu 
+            SceneManager.LoadScene("_MainMenu");
+            return;
+        }
+
         string currentName = PlayerPrefs.GetString("SavedUsername", "Player");
         if (PhotonNetwork.IsConnected)
         {
@@ -83,11 +91,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    // public void OnClickPlayButton()
-    // {
-    //     LockRoom();
-    //     PhotonNetwork.LoadLevel("MPCutscene1");
-    // }
+    public void OnClickPlayButton()
+    {
+        roomPanel.SetActive(false);
+        levelPanel.SetActive(true);
+    }
+
+    public void OnClickBackFromLevelSelect()
+    {
+        levelPanel.SetActive(false);
+        roomPanel.SetActive(true);
+    }
 
     public void OnClickCreate()
     {
@@ -176,26 +190,39 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PlayfabManager.Instance.StopHeartbeat();
         }
 
+        //Gửi tín hiệu Offline lên PlayFab
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string> { { "LastActive", "0" } }
         };
-        PlayFabClientAPI.UpdateUserData(request,
-        result =>
-        {
-            Debug.Log("PlayFab Offline Success.");
-            PhotonNetwork.Disconnect();
-        },
-        error =>
-        {
-            Debug.LogError("PlayFab Offline Failed: " + error.ErrorMessage);
-            PhotonNetwork.Disconnect();
-        });
+
+        PlayFabClientAPI.UpdateUserData(request, null, null);
+
+        //Ngắt kết nối Photon
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
-        SceneManager.LoadScene("_MainMenu");
+        //Nếu PlayFab đang xử lý ForceLogout rồi thì Photon không làm gì cả
+        if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsLoggingOut)
+        {
+            return;
+        }
+
+        //Kiểm tra nguyên nhân ngắt kết nối
+        if (cause == Photon.Realtime.DisconnectCause.DisconnectByClientLogic)
+        {
+            //người chơi tự bấm nút Exit, Về Menu bình thường
+            SceneManager.LoadScene("_MainMenu");
+        }
+        else
+        {
+            //Do lỗi mạng
+            Debug.LogWarning("Mất kết nối bất ngờ: " + cause);
+            if (PlayfabManager.Instance != null)
+                PlayfabManager.Instance.ForceLogout();
+        }
     }
 
     public void LockRoom()

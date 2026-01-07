@@ -62,6 +62,8 @@ MonoBehaviour:
   - RPC_PlayExplosionVFX
   - RPC_FireVisuals
   - RPC_SyncShoot
+  - RPC_SyncArmor
+  - RPC_DestroyObject
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

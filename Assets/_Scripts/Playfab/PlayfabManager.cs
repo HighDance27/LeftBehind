@@ -7,11 +7,15 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Photon.Pun;
 
 public class PlayfabManager : MonoBehaviour
 {
     [Header("UI")]
     public Text messageText;
+    public GameObject[] loginUIElements;
+    public GameObject registerPanel;
+    public GameObject backButton;
 
     [Header("UI - Login")]
     public TMP_InputField loginEmailInput;
@@ -26,6 +30,7 @@ public class PlayfabManager : MonoBehaviour
     private bool isHeartbeatStarted = false;
 
     public static PlayfabManager Instance;
+    public bool IsLoggingOut { get; private set; } = false;
 
     private void Awake()
     {
@@ -45,6 +50,32 @@ public class PlayfabManager : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    public void OpenRegisterPanel()
+    {
+        foreach (GameObject item in loginUIElements)
+        {
+            if (item != null) item.SetActive(false);
+        }
+        registerPanel.SetActive(true);
+        if (messageText != null) messageText.text = "";
+    }
+
+    public void OpenLoginPanel()
+    {
+        IsLoggingOut = false;
+        registerPanel.SetActive(false);
+
+        if (loginUIElements != null)
+        {
+            foreach (GameObject item in loginUIElements)
+            {
+                if (item != null) item.SetActive(true);
+            }
+        }
+
+        ClearInputFieldOnBack();
     }
 
     #region Login & Register
@@ -144,6 +175,7 @@ public class PlayfabManager : MonoBehaviour
 
     void ProceedToGame()
     {
+        IsLoggingOut = false;
         ShowMessage("Login Successfully!");
         LoadLevelProgressFromCloud();
 
@@ -162,8 +194,56 @@ public class PlayfabManager : MonoBehaviour
 
     void OnError(PlayFabError error)
     {
-        ShowMessage(error.ErrorMessage);
         Debug.Log(error.GenerateErrorReport());
+
+        string friendlyMessage = "Unknown Error!";
+
+        switch (error.Error)
+        {
+            case PlayFabErrorCode.InvalidEmailOrPassword:
+            case PlayFabErrorCode.InvalidPassword:
+                friendlyMessage = "Invalid Email or Password";
+                break;
+
+            case PlayFabErrorCode.AccountNotFound:
+                friendlyMessage = "Account not found";
+                break;
+
+            case PlayFabErrorCode.NameNotAvailable:
+                friendlyMessage = "Username is already taken";
+                break;
+
+            case PlayFabErrorCode.EmailAddressNotAvailable:
+                friendlyMessage = "Email is already registered";
+                break;
+
+            case PlayFabErrorCode.ConnectionError:
+            case PlayFabErrorCode.ServiceUnavailable:
+                friendlyMessage = "Network Error! Please check your connection";
+                break;
+
+            case PlayFabErrorCode.InvalidParams:
+                friendlyMessage = "Invalid input data";
+                break;
+
+            case PlayFabErrorCode.OverLimit:
+                friendlyMessage = "Too many requests. Please wait";
+                break;
+
+            default:
+                //HttpCode = 0 tức là mất mạng
+                if (error.HttpCode == 0)
+                {
+                    friendlyMessage = "Network connection lost!";
+                }
+                else
+                {
+                    friendlyMessage = "System Error (" + error.Error + ")";
+                }
+                break;
+        }
+
+        ShowMessage(friendlyMessage);
     }
 
     void ShowMessage(string msg)
@@ -234,9 +314,67 @@ public class PlayfabManager : MonoBehaviour
                     }
                 }
             };
-            PlayFabClientAPI.UpdateUserData(request, null, null);
-            yield return new WaitForSeconds(10f);
+            PlayFabClientAPI.UpdateUserData(request, null, OnHeartbeatError);
+            yield return new WaitForSeconds(5f);
         }
+    }
+
+    void OnHeartbeatError(PlayFabError error)
+    {
+        // HttpCode == 0 thường có nghĩa là không kết nối được tới server
+        bool isNetworkError = error.HttpCode == 0 ||
+                              error.Error == PlayFabErrorCode.ServiceUnavailable ||
+                              error.Error == PlayFabErrorCode.ConnectionError;
+        if (isNetworkError)
+        {
+            Debug.LogWarning("Heartbeat Failed: " + error.GenerateErrorReport());
+            ForceLogout();
+        }
+        else
+        {
+            // Nếu là lỗi logic khác (ví dụ: Session hết hạn), cũng nên logout để an toàn
+            Debug.LogError("Logic error: " + error.GenerateErrorReport());
+
+            // lỗi session hết hạn cũng đá ra luôn
+            if (error.Error == PlayFabErrorCode.NotAuthorized || error.Error == PlayFabErrorCode.InvalidSessionTicket)
+            {
+                ForceLogout();
+            }
+        }
+    }
+
+    public void ForceLogout()
+    {
+        if (IsLoggingOut) return;
+        IsLoggingOut = true;
+
+        StopHeartbeat();
+
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.AutomaticallySyncScene = false;
+            PhotonNetwork.Disconnect();
+        }
+
+        //Xóa thông tin đăng nhập PlayFab trong SDK
+        PlayFabClientAPI.ForgetAllCredentials();
+
+        //Xóa dữ liệu lưu tạm trong máy
+        PlayerPrefs.DeleteKey("PlayFabId");
+
+        PlayerPrefs.Save();
+
+        //Hiển thị thông báo
+        StartCoroutine(ShowMessageAfterSceneLoad("Connection Lost. Please login again."));
+
+        SceneManager.LoadScene(0);
+
+    }
+
+    IEnumerator ShowMessageAfterSceneLoad(string msg)
+    {
+        yield return new WaitForSeconds(0.5f);
+        ShowMessage(msg);
     }
 
     public void StopHeartbeat()

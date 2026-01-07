@@ -12,6 +12,10 @@ public class MPHealthController : MonoBehaviourPun
     [SerializeField] private int currentHealth;
     [SerializeField] private int maximumHealth;
 
+    [Header("Armor Settings")]
+    [SerializeField] private int currentArmor;
+    [SerializeField] private int maximumArmor;
+
     [Header("Audio Clips")]
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip dieSound;
@@ -29,15 +33,26 @@ public class MPHealthController : MonoBehaviourPun
     public UnityEvent OnDied;
     public UnityEvent OnDamaged;
     public UnityEvent OnHealthChanged;
+    public UnityEvent OnArmorChanged;
 
     public int CurrentHealth => currentHealth;
     public int MaximumHealth => maximumHealth;
+    public int CurrentArmor => currentArmor;
 
     public float RemainingHealthPercentage
     {
         get
         {
             return currentHealth / (float)maximumHealth; //Parse to update HP UI
+        }
+    }
+
+    public float RemainingArmorPercentage
+    {
+        get
+        {
+            if (maximumArmor == 0) return 0;
+            return currentArmor / (float)maximumArmor;
         }
     }
 
@@ -92,27 +107,61 @@ public class MPHealthController : MonoBehaviourPun
     {
         if (currentHealth == -1 || currentHealth == 0 || IsInvincible) return;
 
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        int damageToHealth = damage;
 
-        OnHealthChanged.Invoke();
-
-        //đồng bộ máu cho máy khác khi tính xong
-        if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+        if (currentArmor > 0)
         {
-            photonView.RPC(nameof(RPC_SyncHealth), RpcTarget.Others, currentHealth);
+            if (currentArmor >= damage)
+            {
+                // Giáp chịu hết dame
+                currentArmor -= damage;
+                damageToHealth = 0;
+            }
+            else
+            {
+                // Vỡ giáp, dame dư trừ vào máu
+                damageToHealth = damage - currentArmor;
+                currentArmor = 0;
+            }
+
+            // Cập nhật UI trên máy Master
+            OnArmorChanged.Invoke();
+
+            // Đồng bộ lượng Giáp mới cho các máy khác
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC(nameof(RPC_SyncArmor), RpcTarget.Others, currentArmor);
+            }
         }
 
-        if (currentHealth == 0 && !hasDied)
+        // Nếu còn sát thương dư thì trừ vào máu
+        if (damageToHealth > 0)
         {
-            hasDied = true;
+            currentHealth -= damageToHealth;
+            if (currentHealth < 0) currentHealth = 0;
 
-            SoundManager.Instance?.PlaySound(dieSound);
-            OnDied.Invoke();
+            OnHealthChanged.Invoke();
 
-            //đồng bộ chết cho máy khác thấy
-            photonView.RPC(nameof(RPC_HandleDeath), RpcTarget.All);
+            // Đồng bộ Máu cho máy khác
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC(nameof(RPC_SyncHealth), RpcTarget.Others, currentHealth);
+            }
+
+            if (currentHealth == 0 && !hasDied)
+            {
+                hasDied = true;
+                SoundManager.Instance?.PlaySound(dieSound);
+                OnDied.Invoke();
+                photonView.RPC(nameof(RPC_HandleDeath), RpcTarget.All);
+            }
+            else
+            {
+                SoundManager.Instance?.PlaySound(hurtSound);
+                OnDamaged.Invoke();
+            }
         }
+
         else
         {
             SoundManager.Instance?.PlaySound(hurtSound);
@@ -143,6 +192,13 @@ public class MPHealthController : MonoBehaviourPun
         OnHealthChanged.Invoke();
     }
 
+    [PunRPC]
+    private void RPC_SyncArmor(int newArmor)
+    {
+        currentArmor = newArmor;
+        OnArmorChanged.Invoke();
+    }
+
     public void SetHealth(int amount)
     {
         currentHealth = Mathf.Clamp(amount, 0, maximumHealth);
@@ -154,6 +210,25 @@ public class MPHealthController : MonoBehaviourPun
         if (currentHealth == -1 || currentHealth == maximumHealth) return;
         currentHealth = Mathf.Min(currentHealth + amount, maximumHealth);
         OnHealthChanged.Invoke();
+
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC(nameof(RPC_SyncHealth), RpcTarget.Others, currentHealth);
+        }
+    }
+
+    public void AddArmor(int amount)
+    {
+        if (currentHealth <= 0) return;
+        if (currentArmor == maximumArmor) return;
+
+        currentArmor = Mathf.Min(currentArmor + amount, maximumArmor);
+        OnArmorChanged.Invoke();
+
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC(nameof(RPC_SyncArmor), RpcTarget.Others, currentArmor);
+        }
     }
 
     public void ExplodeVFX()

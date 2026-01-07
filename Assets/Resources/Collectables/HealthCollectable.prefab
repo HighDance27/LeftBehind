@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2082498215219946594}
   - component: {fileID: 7449956645048424536}
   - component: {fileID: 4165581253243185545}
+  - component: {fileID: -1414292152678721417}
   m_Layer: 0
   m_Name: HealthCollectable
   m_TagString: Untagged
@@ -222,7 +223,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.17, y: 0.2}
+    oldSize: {x: 0.1328125, y: 0.15625}
     newSize: {x: 0.15, y: 0.14}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -255,4 +256,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc6f6878d5a5a4988ee3612d4adb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPHealthCollectable
-  healthAmount: 50
+  type: 0
+  healthAmount: 20
+  armorAmount: 0
+  ammoAmount: 0
+--- !u!114 &-1414292152678721417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568079221093792489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

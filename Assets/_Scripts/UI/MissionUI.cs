@@ -19,7 +19,7 @@ public class MissionUI : MonoBehaviour
             SoundManager.Instance.PlaySound(missionClearSound);
 
         // Stop player movement when mission clear
-        var player = FindObjectOfType<Player>();
+        var player = FindObjectOfType<PlayerMovement>();
         if (player != null)
             player.StopMovement();
     }

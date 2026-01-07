@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public WeaponSystem weapons;
-    private Player playerMovement;
+    private PlayerMovement playerMovement;
     private MultiMovement multiMovement;
     private KnifeAttack currentKnife;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement = GetComponent<Player>();
+        playerMovement = GetComponent<PlayerMovement>();
         multiMovement = GetComponent<MultiMovement>();
         animator = GetComponent<Animator>();
     }

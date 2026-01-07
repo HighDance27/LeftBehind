@@ -10,6 +10,7 @@ public class PlayerHealthPersistence : MonoBehaviour
 
     private const string KEY_SAVED_HP = "HP_Saved";
     private const string KEY_SAVED_MAX_HP = "HP_SavedMax";
+    private const string KEY_SAVED_ARMOR = "Armor_Saved";
 
     private void Awake()
     {
@@ -68,18 +69,32 @@ public class PlayerHealthPersistence : MonoBehaviour
             //nếu không có giá trị đã lưu, đặt lại = maxHP
             healthController.SetHealth(healthController.MaximumHealth);
         }
+
+        if (PlayerPrefs.HasKey(KEY_SAVED_ARMOR))
+        {
+            int savedArmor = PlayerPrefs.GetInt(KEY_SAVED_ARMOR);
+            // Gọi hàm SetArmor vừa tạo bên HealthController
+            healthController.SetArmor(savedArmor);
+        }
+        else
+        {
+            // Mặc định là 0 (hoặc full giáp tùy thiết kế game của bạn)
+            healthController.SetArmor(0);
+        }
     }
 
     public void RestoreHealthOnCheckpoint()
     {
         if (healthController != null)
             healthController.SetHealth(healthController.MaximumHealth);
+        healthController.SetArmor(healthController.MaximumArmor);
     }
 
     public void ClearSavedHealth()
     {
         PlayerPrefs.DeleteKey(KEY_SAVED_HP);
         PlayerPrefs.DeleteKey(KEY_SAVED_MAX_HP);
+        PlayerPrefs.DeleteKey(KEY_SAVED_ARMOR);
         PlayerPrefs.Save();
     }
 }

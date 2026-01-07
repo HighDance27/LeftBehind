@@ -4,7 +4,7 @@ namespace TopDown.Movement
     [RequireComponent(typeof(Rigidbody2D))]
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private float movementSpeed;
+        [SerializeField] protected float movementSpeed;
         private Rigidbody2D body;
         protected Vector3 currentInput; //protected for child's class access
         public Vector3 CurrentInput => currentInput; // Chỉ cho phép xem {get;}

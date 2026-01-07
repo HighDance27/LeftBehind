@@ -12,12 +12,6 @@ namespace TopDown.Shooting
         [Header("Combat")]
         [SerializeField] private int damage = 10;
 
-        [Header("Accuracy")]
-        [Tooltip("Accuracy rating: 10 = perfect, 1 = very inaccurate.")]
-        [Range(1f, 10f)][SerializeField] private float accuracyRating = 10f;
-        [Tooltip("Max spread by degree when accuracy = 1/10.")]
-        [SerializeField] private float maxSpreadDegrees = 10f;
-
         private Rigidbody2D body;
         private float lifeTimer;
 
@@ -35,6 +29,10 @@ namespace TopDown.Shooting
         {
             body = GetComponent<Rigidbody2D>();
             wallLayer = LayerMask.NameToLayer(wallLayerName);
+        }
+
+        private void OnEnable()
+        {
             startPos = GetComponent<Transform>().position;
         }
 
@@ -94,25 +92,13 @@ namespace TopDown.Shooting
             }
         }
 
-        public void ShootBullet(Transform shootPoint)
+        public void ShootBullet()
         {
             lifeTimer = 0f;
             body.linearVelocity = Vector2.zero;
-            transform.position = shootPoint.position;
 
-            // 10: không lệch (0 độ), 1: lệch tối đa theo maxSpreadDegrees
-            float spread = Mathf.Lerp(maxSpreadDegrees, 0f, accuracyRating / 10f);
-
-            // Tính góc lệch ngẫu nhiên trong phạm vi spread
-            float zOffset = Random.Range(-spread * 0.5f, spread * 0.5f);
-
-            // Kết hợp góc quay của nòng súng với góc lệch ngẫu nhiên
-            Quaternion shotRot = shootPoint.rotation * Quaternion.Euler(0f, 0f, zOffset);
-            transform.rotation = shotRot;
-
-            gameObject.SetActive(true);
             // Tính hướng bay dựa trên góc quay cuối cùng
-            Vector2 dir = -(Vector2)(shotRot * Vector3.up);
+            Vector2 dir = -(Vector2)transform.up;
 
             body.AddForce(dir * speed, ForceMode2D.Impulse);
         }
@@ -134,10 +120,5 @@ namespace TopDown.Shooting
                 gameObject.SetActive(false);
         }
 
-        public void SetAccuracy(float rating)
-        {
-            accuracyRating = Mathf.Clamp(rating, 1f, 10f);
-        }
     }
-
 }

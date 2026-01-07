@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 6811629981006483774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.007, y: -0.327, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.05, z: 0.1}
+  m_LocalPosition: {x: -0.0298, y: -0.3278, z: 0}
+  m_LocalScale: {x: 0.02, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -154,8 +154,6 @@ MonoBehaviour:
   speed: 10
   lifetime: 0.4
   damage: 10
-  accuracyRating: 4
-  maxSpreadDegrees: 30
   wallLayerName: Wall
   enemyHitEffect: {fileID: 8740823980001034175, guid: c2a5dd8099ecdba4b9509cb43f6aa47e, type: 3}
   wallHitEffect: {fileID: 8740823980001034175, guid: 70f675ce337b1864da758e6866534c4e, type: 3}

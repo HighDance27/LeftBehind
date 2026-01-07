@@ -13,9 +13,16 @@ public class MPEnemyShooting : MonoBehaviourPun
     [SerializeField] private Animator muzzleFlashAnimator;
     [SerializeField] private AudioClip shotSound;
 
+    [Header("Weapon Type")]
+    [SerializeField] private bool isShotgun = false;
+    [SerializeField] private int pelletCount = 5;
+
     [Header("Shooting")]
     [SerializeField] private float fireRate = 1f;
-    [SerializeField] private int poolSize = 6;
+    [SerializeField] private int poolSize = 10;
+
+    [Header("Accuracy")]
+    [SerializeField] private float spreadAngle = 15f;
 
     [Header("Fake Bullet")]
     [SerializeField] private FakeBullet fakeBulletPrefab;
@@ -26,7 +33,6 @@ public class MPEnemyShooting : MonoBehaviourPun
 
     private MPAwareness awareness;
     private float fireCooldown;
-    private MPProjectile[] pool;
 
     // Cached LOS data
     private int playerLayerID;
@@ -133,7 +139,7 @@ public class MPEnemyShooting : MonoBehaviourPun
     private void Fire()
     {
         Vector3 spawnPos = firePoint.position;
-        Quaternion spawnRot = firePoint.rotation;
+        Quaternion baseRot = firePoint.rotation;
 
         // Đổi từ milisecond sang second.
         float currentPing = PhotonNetwork.GetPing();
@@ -141,47 +147,67 @@ public class MPEnemyShooting : MonoBehaviourPun
 
         // Giới hạn delay tối đa để tránh địch bị lag quá lâu
         delaySeconds = Mathf.Clamp(delaySeconds, 0f, 0.4f);
-        //Lấy đạn thật từ Pool
-        MPProjectile proj = GetRealProjectileFromPool();
-        if (proj != null)
-        {
-            proj.transform.position = spawnPos;
-            proj.transform.rotation = spawnRot;
-            proj.gameObject.SetActive(true);
 
-            proj.OwnerID = photonView.ViewID;
-            proj.ShootBullet(spawnPos, spawnRot, delaySeconds);
+        // Xác định số lượng đạn
+        int bulletsToFire = isShotgun ? pelletCount : 1;
+
+        // Tạo mảng chứa các góc lệch để gửi cho Client khác (để đồng bộ hướng bay giả)
+        float[] spreadAngles = new float[bulletsToFire];
+
+        for (int i = 0; i < bulletsToFire; i++)
+        {
+            // Tính góc lệch ngẫu nhiên tại Master
+            float spread = Random.Range(-spreadAngle, spreadAngle);
+            spreadAngles[i] = spread;
+
+            // Tính rotation cuối cùng
+            Quaternion finalRotation = baseRot * Quaternion.Euler(0, 0, spread);
+            //Lấy đạn thật từ Pool
+            MPProjectile proj = GetRealProjectileFromPool();
+            if (proj != null)
+            {
+                proj.transform.position = spawnPos;
+                proj.transform.rotation = finalRotation;
+                proj.gameObject.SetActive(true);
+
+                proj.OwnerID = photonView.ViewID;
+                proj.ShootBullet(spawnPos, finalRotation, delaySeconds);
+            }
         }
+
         //Báo các Client khác hiện đạn giả
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC(nameof(RPC_FireVisuals), RpcTarget.Others, spawnPos, spawnRot);
+            photonView.RPC(nameof(RPC_FireVisuals), RpcTarget.Others, spawnPos, baseRot, spreadAngles);
         }
 
-        PlayFireEffects(spawnPos, spawnRot, false); //không spawn đạn giả cho Master
+        PlayEffectsOnly();
     }
 
     [PunRPC]
-    private void RPC_FireVisuals(Vector3 spawnPos, Quaternion spawnRot)
+    private void RPC_FireVisuals(Vector3 spawnPos, Quaternion baseRot, float[] spreadAngles)
     {
-        // Client nhận lệnh thì chạy hiệu ứng
-        PlayFireEffects(spawnPos, spawnRot, true);
-    }
-
-    private void PlayFireEffects(Vector3 pos, Quaternion rot, bool spawnFakeBullet = true)
-    {
-        // Lấy đạn giả từ Pool
-        if (spawnFakeBullet)
+        // Duyệt qua danh sách góc lệch nhận được từ Master
+        foreach (float spread in spreadAngles)
         {
+            Quaternion finalRotation = baseRot * Quaternion.Euler(0, 0, spread);
+
+            // Spawn đạn giả
             FakeBullet fake = GetFakeBulletFromPool();
             if (fake != null)
             {
-                fake.transform.position = pos;
-                fake.transform.rotation = rot;
+                fake.transform.position = spawnPos;
+                fake.transform.rotation = finalRotation;
+                fake.SetOwner(gameObject);
                 fake.gameObject.SetActive(true);
             }
         }
 
+        PlayEffectsOnly();
+    }
+
+    private void PlayEffectsOnly()
+    {
         if (muzzleFlashAnimator != null)
             muzzleFlashAnimator.SetTrigger("shoot");
 

@@ -5,15 +5,16 @@ using UnityEngine.UI;
 public class MPHealthBar : MonoBehaviour
 {
     [SerializeField] private Image healthBarForegroundImage;
+    [SerializeField] private Image armorBarForegroundImage;
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset;
     [SerializeField] private Camera camera;
 
     private PhotonView targetView;
+    private MPHealthController healthController;
 
     private void Awake()
     {
-
         if (camera == null)
         {
             camera = Camera.main;
@@ -36,11 +37,13 @@ public class MPHealthBar : MonoBehaviour
         if (target != null)
         {
             targetView = target.GetComponent<PhotonView>();
+            healthController = target.GetComponent<MPHealthController>();
         }
 
         if (isEnemy)
         {
             gameObject.SetActive(true);
+            if (armorBarForegroundImage != null) armorBarForegroundImage.gameObject.SetActive(false);
             return;
         }
 
@@ -55,15 +58,54 @@ public class MPHealthBar : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (healthController != null)
+        {
+            // Tự động đăng ký sự kiện
+            healthController.OnHealthChanged.AddListener(() => UpdateHealthBar(healthController));
+            healthController.OnArmorChanged.AddListener(() => UpdateArmorBar(healthController));
+
+            //Cập nhật UI ngay lập tức khi game bắt đầu
+            UpdateHealthBar(healthController);
+            UpdateArmorBar(healthController);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (healthController != null)
+        {
+            healthController.OnHealthChanged.RemoveAllListeners();
+            healthController.OnArmorChanged.RemoveAllListeners();
+        }
+    }
+
     public void UpdateHealthBar(MPHealthController health)
     {
         healthBarForegroundImage.fillAmount = health.RemainingHealthPercentage;
     }
 
+    public void UpdateArmorBar(MPHealthController health)
+    {
+        if (GetComponentInParent<MPEnemyMovement>() != null)
+        {
+            return;
+        }
+
+        armorBarForegroundImage.fillAmount = health.RemainingArmorPercentage;
+    }
+
     private void LateUpdate()
     {
-        //giữ không xoay
-        transform.rotation = camera.transform.rotation;
-        transform.position = target.position + offset;
+        if (target != null)
+        {
+            transform.rotation = camera.transform.rotation;
+            transform.position = target.position + offset;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

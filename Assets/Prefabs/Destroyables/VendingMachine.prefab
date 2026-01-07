@@ -106,6 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthController
   currentHealth: 30
   maximumHealth: 30
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 70d0a164457104943898e470a130b343, type: 3}
   dieSound: {fileID: 8300000, guid: 57a1235a59fae2649a32c49da59d481b, type: 3}
   wallSFX: {fileID: 0}
@@ -140,6 +142,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnArmorChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!61 &6886570452153481334
@@ -180,11 +185,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.84375, y: 1.0625}
+    oldSize: {x: 0.421875, y: 0.53125}
     newSize: {x: 0.13, y: 0.1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.84375, y: 1.0625}
+  m_Size: {x: 0.421875, y: 0.53125}
   m_EdgeRadius: 0

@@ -15,17 +15,12 @@ namespace TopDown.Shooting
         [Header("Damage")]
         [SerializeField] private int damage = 10;
 
-        [Header("Accuracy")]
-        [Tooltip("10 = perfect aim, 1 = very inaccurate")]
-        [Range(1f, 10f)][SerializeField] private float accuracyRating = 10f;
-        [Tooltip("Max deviation (degrees) when accuracy = 1/10")]
-        [SerializeField] private float maxSpreadDegrees = 10f;
-
         [Header("Layers & Effects")]
         [SerializeField] private string wallLayerName = "Wall";
         [SerializeField] private ParticleSystem enemyHitEffect;
         [SerializeField] private ParticleSystem wallHitEffect;
         [SerializeField] private ParticleSystem destroyableHitEffect;
+        [SerializeField] private AudioClip wallSFX;
 
         private Rigidbody2D _rb;
         private float _lifeTimer;
@@ -56,11 +51,13 @@ namespace TopDown.Shooting
                 gameObject.SetActive(false);
         }
 
+        //Dùng để bắn đạn thật
         public void ShootBullet(Transform shootPoint)
         {
-            ShootBullet(shootPoint.position, shootPoint.rotation, 0f);
+            ShootBullet(shootPoint.position, transform.rotation, 0f);
         }
 
+        // Hàm này dùng cho RPC (Fake Bullet)
         public void ShootBullet(Vector3 position, Quaternion rotation, float startDelay = 0f)
         {
             //reset trạng thái
@@ -68,14 +65,7 @@ namespace TopDown.Shooting
             _rb.linearVelocity = Vector2.zero;
 
             transform.position = position;
-
-            //apply độ tản dựa vào độ chính xác
-            float spread = Mathf.Lerp(maxSpreadDegrees, 0f, accuracyRating / 10f);
-            float zOffset = Random.Range(-spread * 0.5f, spread * 0.5f);
-
-            //Lấy góc quay của súng cộng thêm góc lệch random
-            Quaternion shotRot = rotation * Quaternion.Euler(0f, 0f, zOffset);
-            transform.rotation = shotRot;
+            transform.rotation = rotation;
 
             gameObject.SetActive(true);
             // Nếu có Coroutine cũ đang chạy (ví dụ dùng lại từ pool quá nhanh), dừng nó
@@ -84,31 +74,26 @@ namespace TopDown.Shooting
             // Nếu cần delay thì chạy Coroutine, không thì bắn ngay
             if (startDelay > 0f)
             {
-                _launchCoroutine = StartCoroutine(DelayedLaunch(startDelay, shotRot));
+                _launchCoroutine = StartCoroutine(DelayedLaunch(startDelay));
             }
             else
             {
-                ApplyVelocity(shotRot);
+                ApplyVelocity();
             }
         }
 
-        private IEnumerator DelayedLaunch(float delay, Quaternion rotation)
+        private IEnumerator DelayedLaunch(float delay)
         {
             // Đợi 1 khoảng thời gian (Master đứng yên chờ Client bắt kịp)
             yield return new WaitForSeconds(delay);
-            ApplyVelocity(rotation);
+            ApplyVelocity();
         }
 
-        private void ApplyVelocity(Quaternion rotation)
+        private void ApplyVelocity()
         {
             _startPos = transform.position; // Cập nhật lại vị trí bắt đầu tính từ lúc bay
-            Vector2 dir = -(Vector2)(rotation * Vector3.up);
+            Vector2 dir = -(Vector2)transform.up;
             _rb.linearVelocity = dir * speed;
-        }
-
-        public void SetAccuracy(float rating)
-        {
-            accuracyRating = Mathf.Clamp(rating, 1f, 10f);
         }
 
         private void Deactivate()
@@ -190,9 +175,10 @@ namespace TopDown.Shooting
             }
 
             //layer wall
-            if (col.gameObject.layer == _wallLayer)
+            if (col.gameObject.layer == _wallLayer && col.CompareTag("Wall"))
             {
                 SpawnEffect(wallHitEffect, transform.position, Quaternion.LookRotation(lookDir));
+                SoundManager.Instance.PlaySound(wallSFX);
                 Deactivate();
             }
         }

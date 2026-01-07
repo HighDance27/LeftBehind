@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb14cc3fb79bac44fb36675388ec6e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectSound: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: b62f1b26da755f04d9eabcad7584f04e, type: 3}
 --- !u!61 &2082498215219946594
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -255,4 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1669864da991db3498eed415a9f5d165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   healthAmount: 40
+  ammoAmount: 0

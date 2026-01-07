@@ -8,9 +8,14 @@ public class HealthController : MonoBehaviour
     [SerializeField] private int currentHealth;
     [SerializeField] private int maximumHealth;
 
+    [SerializeField] private int currentArmor;
+    [SerializeField] private int maximumArmor;
+
     public int CurrentHealth => currentHealth;
     public int MaximumHealth => maximumHealth;
 
+    public int CurrentArmor => currentArmor;
+    public int MaximumArmor => maximumArmor;
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip dieSound;
     [SerializeField] public AudioClip wallSFX;
@@ -32,11 +37,20 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public float RemainingArmorPercentage
+    {
+        get
+        {
+            return currentArmor / (float)maximumArmor;
+        }
+    }
+
     public bool IsInvincible { get; set; }
 
     public UnityEvent OnDied;
     public UnityEvent OnDamaged;
     public UnityEvent OnHealthChanged;
+    public UnityEvent OnArmorChanged;
 
     public void TakeDamage(int damageAmount)
     {
@@ -55,23 +69,51 @@ public class HealthController : MonoBehaviour
             return;
         }
 
-        currentHealth -= damageAmount;
-        OnHealthChanged.Invoke();
-
-        if (currentHealth < 0)
+        if (currentArmor > 0)
         {
-            currentHealth = 0;
+            if (currentArmor >= damageAmount)
+            {
+                // Nếu Giáp chịu được toàn bộ sát thương
+                currentArmor -= damageAmount;
+                damageAmount = 0;
+                OnArmorChanged.Invoke();
+            }
+            else
+            {
+                // Nếu sát thương lớn hơn Giáp
+                damageAmount -= currentArmor; // Tính phần sát thương dư
+                currentArmor = 0;
+                OnArmorChanged.Invoke();
+            }
         }
 
-        if (currentHealth == 0 && !hasDied)
+        // Nếu vẫn còn sát thương dư (hoặc không có giáp), trừ vào máu
+        if (damageAmount > 0)
         {
-            hasDied = true; // Prevent re-trigger
-            SoundManager.Instance?.PlaySound(dieSound);
-            OnDied.Invoke();
-            StartCoroutine(GameOverCoroutine(3.5f));
+            currentHealth -= damageAmount;
+            OnHealthChanged.Invoke();
+
+            if (currentHealth < 0)
+            {
+                currentHealth = 0;
+            }
+
+            if (currentHealth == 0 && !hasDied)
+            {
+                hasDied = true;
+                SoundManager.Instance?.PlaySound(dieSound);
+                OnDied.Invoke();
+                StartCoroutine(GameOverCoroutine(3.5f));
+            }
+            else
+            {
+                SoundManager.Instance?.PlaySound(hurtSound);
+                OnDamaged.Invoke();
+            }
         }
         else
         {
+            // Vẫn phát âm thanh bị đau dù chỉ mất giáp (tùy chọn, có thể bỏ nếu muốn)
             SoundManager.Instance?.PlaySound(hurtSound);
             OnDamaged.Invoke();
         }
@@ -93,6 +135,34 @@ public class HealthController : MonoBehaviour
         }
 
         OnHealthChanged.Invoke();
+    }
+
+    public void SetArmor(int amount)
+    {
+        currentArmor = amount;
+
+        if (currentArmor > maximumArmor)
+        {
+            currentArmor = maximumArmor;
+        }
+
+        OnArmorChanged.Invoke();
+    }
+
+    public void AddArmor(int amountToAdd)
+    {
+        if (currentHealth <= 0) return;
+
+        if (currentArmor == maximumArmor) return;
+
+        currentArmor += amountToAdd;
+
+        if (currentArmor > maximumArmor)
+        {
+            currentArmor = maximumArmor;
+        }
+
+        OnArmorChanged.Invoke();
     }
 
     public void AddHealth(int amountToAdd)

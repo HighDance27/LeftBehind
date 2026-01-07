@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8957253458666224854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.316, y: 0.588, z: 0}
+  m_LocalPosition: {x: -3.8816, y: -1.0445, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68,17 +68,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0004963279, y: 0.0007981062}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8333333, y: 0.8333333}
+    oldSize: {x: 0.78125, y: 0.78125}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8404554, y: 0.8345946}
+  m_Size: {x: 0.78125, y: 0.78125}
   m_EdgeRadius: 0
 --- !u!114 &6498819546990453490
 MonoBehaviour:
@@ -94,6 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthController
   currentHealth: 100
   maximumHealth: 100
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 70d0a164457104943898e470a130b343, type: 3}
   dieSound: {fileID: 8300000, guid: 57a1235a59fae2649a32c49da59d481b, type: 3}
   wallSFX: {fileID: 0}
@@ -128,6 +130,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnArmorChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!212 &92763550697755872
