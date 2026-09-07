@@ -52,6 +52,32 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
-        SceneManager.LoadScene("_MainMenu");
+        if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsLoggingOut)
+        {
+            return;
+        }
+
+        Debug.LogWarning("Connect Failed: " + cause);
+
+        if (PlayfabManager.Instance != null)
+        {
+            PlayfabManager.Instance.StopHeartbeat();
+            PlayfabManager.Instance.ForceLogout();
+        }
+        else
+        {
+            SceneManager.LoadScene("_MainMenu");
+        }
+    }
+
+    public override void OnCustomAuthenticationFailed(string debugMessage)
+    {
+        Debug.LogError("Photon Auth Failed: " + debugMessage);
+
+        if (PlayfabManager.Instance != null)
+        {
+            // Token PlayFab có vấn đề, Cần đăng nhập lại
+            PlayfabManager.Instance.ForceLogout();
+        }
     }
 }

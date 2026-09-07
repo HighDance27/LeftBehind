@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 1241878171
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e84216f6a955ff4faa9119e9b9b5d07, type: 3}
+  m_Sprite: {fileID: 1577271949474141609, guid: 0e84216f6a955ff4faa9119e9b9b5d07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 0.17, y: 0.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 4805887466155638944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -0.030000012, y: -0.24700004, z: 0}
+  m_LocalPosition: {x: -0.026, y: -0.1975, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -561,8 +561,11 @@ MonoBehaviour:
   firePoint: {fileID: 6339543126537288501}
   muzzleFlashAnimator: {fileID: 4389117693692845664}
   shotSound: {fileID: 8300000, guid: f1ef0ad56d7cccd4e88ea4fed4c2936a, type: 3}
+  isShotgun: 0
+  pelletCount: 5
   fireRate: 3
   poolSize: 6
+  spreadAngle: 15
   requireLineOfSight: 1
   losObstacles:
     serializedVersion: 2
@@ -878,8 +881,8 @@ Transform:
   m_GameObject: {fileID: 8945684351037923998}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.022, y: -0.238, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: -0.018, y: -0.2554, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4298133850165112381}

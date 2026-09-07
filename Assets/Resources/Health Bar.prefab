@@ -49,8 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036ff959e21903e4cb88d7b1ea764d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPHealthUI
-  healthController: {fileID: 5977694346636180161, guid: 3754ca7503f1acc4db5acc1af64ad3b5, type: 3}
+  healthController: {fileID: 0}
   healthBarForegroundImage: {fileID: 6429148567443918981}
+  armorBarForegroundImage: {fileID: 0}
 --- !u!1 &5736035973486366317
 GameObject:
   m_ObjectHideFlags: 0

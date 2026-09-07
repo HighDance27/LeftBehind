@@ -20,6 +20,12 @@ namespace TopDown.Shooting
         [SerializeField] private bool isShotgun = false;
         private Coroutine reloadCoroutine;
 
+        [Header("Accuracy")]
+        [Tooltip("Accuracy rating: 10 = perfect, 1 = very inaccurate.")]
+        [Range(1f, 10f)][SerializeField] private float accuracyRating = 10f;
+        [Tooltip("Max spread by degree when accuracy = 1/10.")]
+        [SerializeField] private float maxSpreadDegrees = 30f;
+
         [Header("References")]
         [SerializeField] public GameObject realBulletPrefab;
         [SerializeField] public GameObject fakeBulletPrefab;
@@ -29,7 +35,6 @@ namespace TopDown.Shooting
         private MPPlayerController playerController;
         private ShotgunPumpSFX shotgunPumpSFX;
         public Animator crosshairAnim;
-
 
         [Header("Sound Effects")]
         [SerializeField] private AudioClip shotSound;
@@ -132,12 +137,19 @@ namespace TopDown.Shooting
                 return;
             }
 
+            float spread = Mathf.Lerp(maxSpreadDegrees, 0f, accuracyRating / 10f);
+
             for (int i = 0; i < firePoints.Length; i++)
             {
                 Transform fp = firePoints[i];
 
+                //Random ra góc lệch ngẫu nhiên
+                float zOffset = Random.Range(-spread * 0.5f, spread * 0.5f);
+                // Tạo rotation cuối cùng đã bao gồm độ lệch
+                Quaternion finalRotation = fp.rotation * Quaternion.Euler(0f, 0f, zOffset);
+
                 //máy khác tự spawn đạn fake
-                playerController.photonView.RPC("RPC_SpawnFakeBullet", RpcTarget.Others, fp.position, fp.rotation);
+                playerController.photonView.RPC("RPC_SpawnFakeBullet", RpcTarget.Others, fp.position, finalRotation);
 
                 // đạn thật tự xử lý ở máy local
                 if (!PhotonNetwork.IsConnected || photonView.IsMine)
@@ -145,6 +157,7 @@ namespace TopDown.Shooting
                     MPProjectile realBullet = GetBulletFromPool();
                     //nếu dùng đạn cũ từ pool, nếu ID không khớp, đạn có thể va chạm ngay với Collider của người bắn
                     realBullet.OwnerID = photonView.ViewID;
+                    realBullet.transform.rotation = finalRotation;
                     realBullet.ShootBullet(fp);
                 }
             }

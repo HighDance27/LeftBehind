@@ -11,6 +11,11 @@ public class LevelManager : MonoBehaviour
         SaveAllWeaponsAmmo(collision.gameObject);
         SavePlayerHealth(collision.gameObject);
         UnlockNewLevel();
+        NextAct();
+    }
+
+    private void NextAct()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

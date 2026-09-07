@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 namespace TopDown.Movement
 {
     [RequireComponent(typeof(PlayerInput))]
-    public class Player : Mover
+    public class PlayerMovement : Mover
     {
         private bool canMove = true;
+        private float originalMovementSpeed;
 
         [Header("Dodge Settings")]
         [SerializeField] private float dodgeDistance = 3f;
@@ -25,11 +27,37 @@ namespace TopDown.Movement
         [SerializeField] private float dodgeCooldown = 1f;
         private bool canDodge = true;
 
+
         private Collider2D col;
 
         private void Start()
         {
             col = GetComponent<Collider2D>();
+            originalMovementSpeed = movementSpeed;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Tree"))
+            {
+                movementSpeed = originalMovementSpeed * 0.5f;
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Tree"))
+            {
+                movementSpeed = originalMovementSpeed * 0.5f;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Tree"))
+            {
+                movementSpeed = originalMovementSpeed;
+            }
         }
 
         public void HandleMoveInput(Vector2 input)
@@ -71,7 +99,7 @@ namespace TopDown.Movement
             Transform torso = transform.Find("Weapons");
             Transform legs = transform.Find("Legs");
 
-            Vector3 originalScale = new Vector3(0.15f, 0.15f, 0.1f);
+            Vector3 originalScale = new Vector3(1, 1, 1);
             Vector3 startPos = transform.position;
             Vector3 direction = currentInput.normalized;
 

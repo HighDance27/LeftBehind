@@ -44,6 +44,9 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
     [Header("Player Progress")]
     private int currentLevelNumber;
 
+    [Header("Debug Info")]
+    [SerializeField] private Text pingText;
+
     private void Awake()
     {
         MPSceneEnemyManager sem = FindObjectOfType<MPSceneEnemyManager>();
@@ -100,6 +103,17 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
                 CloseSettings();
             else
                 PauseGame(true);
+        }
+        if (pingText != null && PhotonNetwork.IsConnected)
+        {
+            int currentPing = PhotonNetwork.GetPing();
+            string region = PhotonNetwork.CloudRegion;
+
+            pingText.text = $"Ping: {currentPing}ms ({region})";
+
+            // Đổi màu ping <100ms= xanh
+            if (currentPing < 100) pingText.color = Color.green;
+            else pingText.color = Color.red;
         }
     }
 
@@ -292,13 +306,21 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
     public void BackToLobby()
     {
         IsPaused = false;
-        if (PhotonNetwork.InRoom)
+        if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.LeaveRoom();
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LeaveRoom();
+            }
+            else
+            {
+                SceneManager.LoadScene("Lobby");
+            }
         }
         else
         {
-            SceneManager.LoadScene("Lobby");
+            // Nếu mạng đã rớt mà người chơi bấm Back, Về Menu 
+            SceneManager.LoadScene("_MainMenu");
         }
     }
 
@@ -306,6 +328,26 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene("Lobby");
     }
+
+    public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
+    {
+        // Nếu PlayFab đang xử lý logout, return
+        if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsLoggingOut) return;
+
+        // Nếu người chơi tự bấm Back, return
+        if (cause == Photon.Realtime.DisconnectCause.DisconnectByClientLogic) return;
+
+        Debug.LogWarning("Gameplay Disconnect: " + cause);
+
+        if (PlayfabManager.Instance != null)
+        {
+            PlayfabManager.Instance.ForceLogout();
+        }
+
+        // đang chơi mà mất mạng, về menu
+        SceneManager.LoadScene("_MainMenu");
+    }
+
     public void NextLevel()
     {
         PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);

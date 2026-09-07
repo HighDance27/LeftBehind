@@ -13,7 +13,7 @@ namespace TopDown.Movement
         [Header("Dodge Settings")]
         [SerializeField] private float dodgeDistance = 3f;
         [SerializeField] private float dodgeDuration = 0.2f;
-        [SerializeField] private Vector3 dodgeScale = new Vector3(0.2f, 0.2f, 1f);
+        [SerializeField] private Vector3 dodgeScale = new Vector3(1.2f, 1.2f, 1.2f);
         private Coroutine dodgeCoroutine;
 
         [Header("VFX")]
@@ -88,7 +88,7 @@ namespace TopDown.Movement
             Transform torso = transform.Find("Weapons");
             Transform legs = transform.Find("Legs");
 
-            Vector3 originalScale = new Vector3(0.15f, 0.15f, 0.1f);
+            Vector3 originalScale = new Vector3(1f, 1f, 1f);
             Vector3 startPos = transform.position;
 
             if (direction == Vector3.zero)

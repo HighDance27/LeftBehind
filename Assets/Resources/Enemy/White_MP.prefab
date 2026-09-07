@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 1241878171
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 84f15ac13b981854f8d295f3fe9611a1, type: 3}
+  m_Sprite: {fileID: 1577271949474141609, guid: 0e84216f6a955ff4faa9119e9b9b5d07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 0.17, y: 0.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -171,12 +171,12 @@ SpriteRenderer:
   m_SortingLayerID: 367424131
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 23852f7634f047f4a8d6d7aa99a8d473, type: 3}
+  m_Sprite: {fileID: 4528699623369049115, guid: 23852f7634f047f4a8d6d7aa99a8d473, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 0.23, y: 0.31}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 4805887466155638944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -0.030000012, y: -0.422, z: 0}
+  m_LocalPosition: {x: -0.0236, y: -0.1516, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -464,13 +464,17 @@ MonoBehaviour:
   firePoint: {fileID: 6339543126537288501}
   muzzleFlashAnimator: {fileID: 4389117693692845664}
   shotSound: {fileID: 8300000, guid: f1ef0ad56d7cccd4e88ea4fed4c2936a, type: 3}
+  isShotgun: 0
+  pelletCount: 5
   fireRate: 1
   poolSize: 6
+  spreadAngle: 15
   fakeBulletPrefab: {fileID: -1259178699783023082, guid: 884fa5c1a63ebce4794979065a4c7e87, type: 3}
   requireLineOfSight: 0
   losObstacles:
     serializedVersion: 2
     m_Bits: 256
+  extraLatencyBuffer: 0.05
 --- !u!114 &8876849609991105084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +614,8 @@ MonoBehaviour:
   isEnemy: 1
   currentHealth: 20
   maximumHealth: 20
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 45a99b383421b23408adf3b7936d795d, type: 3}
   dieSound: {fileID: 8300000, guid: 9c6d983a433fc014fb37333b69835c5a, type: 3}
   wallSFX: {fileID: 0}
@@ -719,6 +725,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnArmorChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2531088293360549631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPEnemyHPBar
   healthBarForegroundImage: {fileID: 8818985596562933152}
+  armorBarForegroundImage: {fileID: 0}
   target: {fileID: 214425618765819397}
   offset: {x: 0, y: 0.3, z: 0}
   camera: {fileID: 3838587589286972160, guid: fb9fcac8c5741fc4880e030ceb7f05f8, type: 3}
@@ -968,8 +978,8 @@ Transform:
   m_GameObject: {fileID: 8945684351037923998}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.022, y: -0.238, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: -0.0181, y: -0.2111, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4298133850165112381}

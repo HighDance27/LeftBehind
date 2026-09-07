@@ -43,13 +43,20 @@ public class MPCutsceneController : MonoBehaviourPunCallbacks
 
     public void BackToLobby()
     {
-        if (PhotonNetwork.InRoom)
+        if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.LeaveRoom();
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LeaveRoom();
+            }
+            else
+            {
+                SceneManager.LoadScene("Lobby");
+            }
         }
         else
         {
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene("_MainMenu");
         }
     }
 
@@ -57,5 +64,20 @@ public class MPCutsceneController : MonoBehaviourPunCallbacks
     {
         // Bây giờ mới load scene Lobby cục bộ trên máy người chơi
         SceneManager.LoadScene("Lobby");
+    }
+
+    public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
+    {
+        Debug.LogWarning("Cutscene Disconnect: " + cause);
+
+        // Nếu PlayFab đang xử lý logout, return
+        if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsLoggingOut) return;
+
+        if (PlayfabManager.Instance != null)
+        {
+            PlayfabManager.Instance.ForceLogout();
+        }
+        // Mất mạng khi đang xem Cutscene, Về Menu chính
+        SceneManager.LoadScene("_MainMenu");
     }
 }

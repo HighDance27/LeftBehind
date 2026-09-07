@@ -174,12 +174,11 @@ MonoBehaviour:
   speed: 20
   lifetime: 0.2
   damage: 10
-  accuracyRating: 5
-  maxSpreadDegrees: 30
   wallLayerName: Wall
   enemyHitEffect: {fileID: 8740823980001034175, guid: c2a5dd8099ecdba4b9509cb43f6aa47e, type: 3}
   wallHitEffect: {fileID: 8740823980001034175, guid: 70f675ce337b1864da758e6866534c4e, type: 3}
   destroyableHitEffect: {fileID: 8740823980001034175, guid: 70f675ce337b1864da758e6866534c4e, type: 3}
+  wallSFX: {fileID: 8300000, guid: 70d0a164457104943898e470a130b343, type: 3}
   IsPlayerBullet: 1
   OwnerID: 0
 --- !u!114 &-4881098491894848281

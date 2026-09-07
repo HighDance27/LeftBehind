@@ -143,7 +143,7 @@ public class UIManager : MonoBehaviour
             SoundManager.Instance.PlaySound(missionClearSound);
 
         //Lấy component của player để ngưng di chuyển khi UI đang hiện
-        var player = FindObjectOfType<Player>();
+        var player = FindObjectOfType<PlayerMovement>();
         player.StopMovement();
         SaveUnlockedLevel();
     }

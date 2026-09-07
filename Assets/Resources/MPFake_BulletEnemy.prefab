@@ -212,5 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1655d3cd6638474ebe16cb05bd89598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  wallHitEffect: {fileID: 8740823980001034175, guid: 6337c8cce43e60f409f18d027984f5d6, type: 3}
   speed: 5
   lifetime: 1
