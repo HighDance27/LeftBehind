@@ -19,13 +19,14 @@ In this game, you will play as a sole survivor of a special forces,
  abandoned on a remote, hostile island.
  Trapped behind enemy lines, you must fight through terrorist forces, 
  uncover the reason why your unit was left behind, and find a way back to civilization.
+ <br>
 <img width="640" height="320" alt="background" src="https://github.com/user-attachments/assets/b20ee419-ba76-4cad-ab1f-26bf12df280b" />
 
 
 ## <img width="20" height="20" alt="Star" src="https://github.com/user-attachments/assets/4163e73d-d358-4270-ba4e-0d7f79379626" /> Key Highlights
 
 * Battle through hostile territories, scavenge resources, and unravel the mystery of your abandonment in **Campaign** Mode.
-* OR team up with up to three other players to face intense combat challenges. Players can choose from four distinct operatives, each featuring different weapons and baseline stats to complement the squad's tactical playstyle.
+* OR team up with up to three other players to face intense combat challenges. Players can choose from four distinct operatives, each featuring different weapons and baseline stats to complement the squad's tactical playstyle. <br>
 <img width="300" height="154" alt="image" src="https://github.com/user-attachments/assets/4ffa3620-115f-4612-80af-59569d9ec01d" /> <br>
 * AND you can create account to securely save multiplayer progression and compete on global leaderboards.<br> <img width="311" height="154" alt="image" src="https://github.com/user-attachments/assets/f6c4963c-c3eb-4a42-8401-48b7ecc7db6e" />
 
