@@ -70,7 +70,7 @@ High Dance <br>
 Gmail: nvhhdang2003@gmail.com
 
 
-## Acknowledgments
+## <img width="20" height="20" alt="Star" src="https://github.com/user-attachments/assets/4163e73d-d358-4270-ba4e-0d7f79379626" /> Acknowledgments
 
 * Core gameplay concept inspired by and referenced from tutorials by [Pandemonium](https://www.youtube.com/@PandemoniumGameDev)
 * Free sound effects and music sourced from [Freesound.org](https://freesound.org/)
