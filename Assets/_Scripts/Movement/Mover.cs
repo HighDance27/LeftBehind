@@ -16,7 +16,7 @@ namespace TopDown.Movement
 
         private void FixedUpdate()
         {
-            body.linearVelocity = movementSpeed * 80f * currentInput * Time.deltaTime; //if possible
+            body.linearVelocity = currentInput * movementSpeed;
         }
     }
 }

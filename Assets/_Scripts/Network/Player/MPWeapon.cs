@@ -59,12 +59,17 @@ namespace TopDown.Shooting
             photonView = GetComponentInParent<PhotonView>();
             playerController = GetComponentInParent<MPPlayerController>();
 
-            TotalAmmo.Value = initialAmmo;
-            CurrentAmmoInClip.Value = Mathf.Min(clipSize, initialAmmo);
+            int startingClipAmmo = Mathf.Min(clipSize, initialAmmo);
+
+            CurrentAmmoInClip.Value = startingClipAmmo;
+
+            // Đạn dự trữ = Tổng ban đầu - Số đã nằm trong băng
+            TotalAmmo.Value = initialAmmo - startingClipAmmo;
 
             cooldownTimer = fireRateCooldown;
             shotgunPumpSFX = GetComponent<ShotgunPumpSFX>();
         }
+
         private void Update()
         {
             cooldownTimer += Time.deltaTime;
@@ -128,7 +133,7 @@ namespace TopDown.Shooting
             if (isReloading) return;
             if (CurrentAmmoInClip.Value <= 0)
             {
-                // chạy sfc 1 lần khi giữ
+                // chạy sfx 1 lần khi giữ
                 if (!emptySoundPlayed)
                 {
                     SoundManager.Instance?.PlaySound(emptySound);
@@ -166,7 +171,12 @@ namespace TopDown.Shooting
             cooldownTimer = 0;
             CurrentAmmoInClip.Value--;
 
-            SoundManager.Instance?.PlaySound(shotSound);
+            PlayShootingSound();
+
+            if (PhotonNetwork.IsConnected)
+            {
+                playerController.photonView.RPC("RPC_PlayFireSound", RpcTarget.Others);
+            }
 
             var pump = GetComponent<ShotgunPumpSFX>();
             pump?.TriggerPump();
@@ -267,6 +277,11 @@ namespace TopDown.Shooting
             }
 
             isHolding = false;
+        }
+
+        public void PlayShootingSound()
+        {
+            SoundManager.Instance?.PlaySound(shotSound);
         }
     }
 }

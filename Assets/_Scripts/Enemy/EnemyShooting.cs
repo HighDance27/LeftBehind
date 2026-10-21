@@ -92,7 +92,7 @@ public class EnemyShooting : MonoBehaviour
 
         //quay nòng súng về Player
         Vector2 dir = awareness.DirectionToPlayer.normalized;
-        firePoint.up = -dir;
+        firePoint.up = -dir; //xoay ngược Firepoint để tương ứng với Enemy GameObject đang có z = 180
 
         fireCooldown -= Time.deltaTime;
         if (fireCooldown <= 0f)
@@ -124,7 +124,7 @@ public class EnemyShooting : MonoBehaviour
             // Thiết lập vị trí và góc xoay ĐÃ LỆCH cho đạn
             p.transform.SetPositionAndRotation(firePoint.position, finalRotation);
             p.gameObject.SetActive(true);
-
+            p.SetOwner(gameObject);
             p.ShootBullet();
         }
 

@@ -73,12 +73,10 @@ public class PlayerHealthPersistence : MonoBehaviour
         if (PlayerPrefs.HasKey(KEY_SAVED_ARMOR))
         {
             int savedArmor = PlayerPrefs.GetInt(KEY_SAVED_ARMOR);
-            // Gọi hàm SetArmor vừa tạo bên HealthController
             healthController.SetArmor(savedArmor);
         }
         else
         {
-            // Mặc định là 0 (hoặc full giáp tùy thiết kế game của bạn)
             healthController.SetArmor(0);
         }
     }

@@ -62,7 +62,6 @@ namespace TopDown.Movement
             if (!view.IsMine) return; //chỉ player local mới xử lý
             if (!canDodge) return;
 
-            // Decide dodge direction ONCE on the owner
             Vector3 direction = currentInput.sqrMagnitude > 0.001f
                 ? currentInput.normalized
                 : transform.right; //mặc định né qua phải

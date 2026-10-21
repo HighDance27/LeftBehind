@@ -10,9 +10,7 @@ public class MPHealthUI : MonoBehaviour
 
     public void Initialize(MPHealthController playerHealth)
     {
-        Debug.Log("MPHealthUI: Đang khởi tạo kết nối với Player..."); // [DEBUG 1]
-
-        // 1. Gỡ Listener cũ (nếu có) để tránh lỗi
+        // 1. Gỡ Listener cũ để tránh lỗi
         if (healthController != null)
         {
             healthController.OnHealthChanged.RemoveListener(UpdateHealthBar);
@@ -32,17 +30,15 @@ public class MPHealthUI : MonoBehaviour
             UpdateHealthBar();
             UpdateArmorBar();
 
-            Debug.Log("MPHealthUI: Kết nối thành công!"); // [DEBUG 2]
         }
         else
         {
-            Debug.LogError("MPHealthUI: Player Health Controller bị NULL!"); // [DEBUG ERROR]
+            Debug.LogError("MPHealthUI: Player Health Controller NULL!");
         }
     }
 
     private void OnDisable()
     {
-        // 3. Sửa lỗi thiếu dấu ngoặc nhọn {} ở phiên bản cũ
         if (healthController != null)
         {
             healthController.OnHealthChanged.RemoveListener(UpdateHealthBar);
@@ -53,9 +49,6 @@ public class MPHealthUI : MonoBehaviour
     public void UpdateHealthBar()
     {
         if (healthController == null) return;
-
-        // Debug kiểm tra chỉ số máu thực tế
-        // Debug.Log($"UI Máu: {healthController.CurrentHealth}/{healthController.MaximumHealth}");
 
         if (healthBarForegroundImage != null)
         {

@@ -355,7 +355,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -471,6 +471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 50
   maximumHealth: 50
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 45a99b383421b23408adf3b7936d795d, type: 3}
   dieSound: {fileID: 8300000, guid: 9c6d983a433fc014fb37333b69835c5a, type: 3}
   wallSFX: {fileID: 0}
@@ -577,6 +579,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnArmorChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1104366431259492218
@@ -690,7 +695,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 367424131
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &7221780559461579322
 MonoBehaviour:

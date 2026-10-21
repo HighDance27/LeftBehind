@@ -60,7 +60,7 @@ public class MPKnifeAttack : MonoBehaviourPun
 
             if (health != null)
             {
-                health.TakeDamage(damage);
+                health.TakeDamage(damage, photonView.ViewID);
 
             }
         }

@@ -14,9 +14,9 @@ namespace TopDown.CameraControl
 
         private float zPosition = -10;
 
-        public void SetTarget(Transform t) => playerTransform = t; //Multi Player only
+        // public void SetTarget(Transform t) => playerTransform = t; //Multi Player only
 
-        private void Update()
+        private void LateUpdate()
         {
             if (playerTransform == null) return;
 
@@ -26,10 +26,10 @@ namespace TopDown.CameraControl
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             //Khoảng cách giữa chuột và người chơi nhân với hệ số lệch
-            Vector3 cameraDisplacement = (mousePosition - playerTransform.position) * displacementMultiplier;
+            Vector3 cameraDisplacement = (mousePosition - playerTransform.gameObject.transform.position) * displacementMultiplier;
 
             //Xác định vị trí cuối cùng
-            Vector3 finalCameraPosition = playerTransform.position + cameraDisplacement;
+            Vector3 finalCameraPosition = playerTransform.transform.position + cameraDisplacement;
             finalCameraPosition.z = zPosition;
 
             //Giới hạn vị trí Camera

@@ -14,6 +14,7 @@ namespace TopDown.Shooting
 
         private Rigidbody2D body;
         private float lifeTimer;
+        private GameObject owner;
 
         [SerializeField] private string wallLayerName = "Wall";
         private int wallLayer;
@@ -33,15 +34,26 @@ namespace TopDown.Shooting
 
         private void OnEnable()
         {
-            startPos = GetComponent<Transform>().position;
+            //cập nhật vị trí theo firepoint khi được SetActive
+            startPos = transform.position;
+        }
+
+        public void SetOwner(GameObject newOwner)
+        {
+            //Gán người bắn để tránh tự gây sát thương
+            owner = newOwner;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            //Nếu trúng người bắn thì bỏ qua
+            if (owner != null && collision.gameObject == owner) return;
+
             //tìm HealthController của vật thể bị va chạm hoặc cha của nó
             var health = collision.GetComponent<HealthController>()
                          ?? collision.GetComponentInParent<HealthController>();
 
+            //tạo hướng đối nghịch khi lấy 2 vector trừ nhau 
             Vector2 lookDirection = startPos - collision.transform.position;
             bool isDestroyable = collision.CompareTag("Destroyable");
 

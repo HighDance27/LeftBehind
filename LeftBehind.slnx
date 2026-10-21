@@ -1,0 +1,18 @@
+﻿<Solution>
+  <Project Path="UniRx.csproj" />
+  <Project Path="PhotonRealtime.csproj" />
+  <Project Path="PhotonUnityNetworking.Editor.csproj" />
+  <Project Path="PhotonUnityNetworking.csproj" />
+  <Project Path="PlayFab.csproj" />
+  <Project Path="Tayx.Graphy.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="PlayFabEditorExtensions.csproj" />
+  <Project Path="PhotonUnityNetworking.Utilities.csproj" />
+  <Project Path="UniRx.Examples.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="PhotonChat.csproj" />
+  <Project Path="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj" />
+  <Project Path="PlayFabSDKEditor.csproj" />
+  <Project Path="Tayx.Graphy.Editor.csproj" />
+  <Project Path="PhotonUnityNetworking.Utilities.Culling.Editor.csproj" />
+</Solution>

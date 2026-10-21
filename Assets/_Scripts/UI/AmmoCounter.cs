@@ -17,7 +17,8 @@ namespace TopDown.UI
         private int totalAmmo;
 
         private void OnEnable()
-        {   //Theo dõi biến EquippedWeapon trong weaponSystem.   
+        {
+            //Theo dõi biến EquippedWeapon trong weaponSystem.   
             //mỗi lần đổi vũ khí, logic bên trong Subscribe sẽ chạy
             weaponSystem.ObserveEveryValueChanged(ws => ws.EquippedWeapon)
             .Subscribe(newWeapon =>

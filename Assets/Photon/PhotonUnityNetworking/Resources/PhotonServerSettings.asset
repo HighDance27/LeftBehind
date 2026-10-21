@@ -17,6 +17,7 @@ MonoBehaviour:
     AppIdFusion: 
     AppIdChat: 7d8edbb9-09c0-4e85-ad05-b0fba2a42691
     AppIdVoice: 
+    AppIdVideo: 
     AppVersion: 
     UseNameServer: 1
     FixedRegion: 
@@ -64,6 +65,13 @@ MonoBehaviour:
   - RPC_SyncShoot
   - RPC_SyncArmor
   - RPC_DestroyObject
+<<<<<<< Updated upstream
+  - RPC_RewardKill
+=======
+  - RPC_PlayFireSound
+  - RPC_AddKillScore
+  - RPC_AwardKill
+>>>>>>> Stashed changes
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

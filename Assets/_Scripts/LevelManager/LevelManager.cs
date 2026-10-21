@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
 
         PlayerPrefs.SetInt("HP_Saved", health.CurrentHealth);
         PlayerPrefs.SetInt("HP_SavedMax", health.MaximumHealth);
+        PlayerPrefs.SetInt("Armor_Saved", health.CurrentArmor);
         PlayerPrefs.Save();
     }
 
@@ -55,15 +56,11 @@ public class LevelManager : MonoBehaviour
 
         // Nếu màn vừa chơi xong là màn cao nhất đang mở
         // Thì mới mở khóa màn tiếp theo.
-
         if (currentSceneIndex >= maxUnlockedLevel)
         {
             int nextLevel = maxUnlockedLevel + 1;
-
             PlayerPrefs.SetInt("UnlockedLevel", nextLevel);
-
             PlayerPrefs.SetInt("ReachedIndex", currentSceneIndex + 1);
-
             PlayerPrefs.Save();
             Debug.Log("Đã mở khóa Level: " + nextLevel);
         }

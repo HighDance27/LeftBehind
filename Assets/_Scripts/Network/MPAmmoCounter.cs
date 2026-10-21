@@ -8,8 +8,8 @@ namespace TopDown.UI
 {
     public class MPAmmoCounter : MonoBehaviour
     {
-        private readonly CompositeDisposable weaponSubscriptions = new CompositeDisposable();
-        private IDisposable equippedWeaponSubscription;
+        private readonly CompositeDisposable weaponSubscriptions = new CompositeDisposable(); //theo dõi đạn trong súng
+        private IDisposable equippedWeaponSubscription; //theo dõi hành động đổi súng
 
         [Header("References")]
         [SerializeField] private TextMeshProUGUI ammoCounterText;

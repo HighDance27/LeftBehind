@@ -183,6 +183,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (_playerAwareness.AwareOfPlayer)
         {
+            // Tính căn bậc hai của tổng bình phương độ lệch giữa hai trục X và Y: sqrt((x2-x1)^2 + (y2-y1)^2)
             float dist = Vector2.Distance(transform.position, _playerAwareness._player.position);
 
             if (dist < minChaseDistance)
@@ -193,7 +194,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        _rigidbody.linearVelocity = transform.up * _speed * 80f * Time.fixedDeltaTime;
+        _rigidbody.linearVelocity = transform.up * _speed;
     }
 
     private void UpdateAnimation()

@@ -1,10 +1,11 @@
 using Photon.Pun;
 using TopDown.Shooting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MPCrosshair : MonoBehaviourPun
 {
-    private SpriteRenderer spriteRenderer;
+    private Image crosshairImage;
     private MPWeaponSystem weaponSystem;
 
     [Header("Sprites")]
@@ -14,7 +15,9 @@ public class MPCrosshair : MonoBehaviourPun
     private void Awake()
     {
         //tìm component cho dù có đang tắt
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        crosshairImage = GetComponent<Image>();
+        if (crosshairImage == null)
+            crosshairImage = GetComponentInChildren<Image>(true);
         weaponSystem = FindObjectOfType<MPWeaponSystem>();
     }
 
@@ -25,31 +28,35 @@ public class MPCrosshair : MonoBehaviourPun
 
     void Update()
     {
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = cursorPos;
+        transform.position = Input.mousePosition;
 
         if (PlayerHUD.IsPaused || PlayerHUD.IsCleared || PlayerHUD.IsGameOver)
         {
-            spriteRenderer.enabled = false;
+            if (crosshairImage) crosshairImage.enabled = false;
             Cursor.visible = true;
             return;
         }
 
         if (photonView.IsMine)
         {
-            spriteRenderer.enabled = true;
+            if (crosshairImage) crosshairImage.enabled = true;
             Cursor.visible = false;
         }
-        MPWeapon currentWeapon;
-
-        if (weaponSystem != null)
-            currentWeapon = weaponSystem.EquippedWeapon;  // if found
         else
-            currentWeapon = null;
+        {
+            // Tắt crosshair của người khác
+            if (crosshairImage) crosshairImage.enabled = false;
+            return;
+        }
 
-        if (currentWeapon != null && currentWeapon.isReloading)
-            spriteRenderer.sprite = reloadCrosshair;
-        else
-            spriteRenderer.sprite = normalCrosshair;
+        MPWeapon currentWeapon = (weaponSystem != null) ? weaponSystem.EquippedWeapon : null;
+
+        if (crosshairImage != null)
+        {
+            if (currentWeapon != null && currentWeapon.isReloading)
+                crosshairImage.sprite = reloadCrosshair;
+            else
+                crosshairImage.sprite = normalCrosshair;
+        }
     }
 }

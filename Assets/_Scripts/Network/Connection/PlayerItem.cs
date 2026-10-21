@@ -14,7 +14,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     public Image playerAvatar;
     public Sprite[] avatars;
 
-    Player player;
+    Player player; // Tham chiếu tới đối tượng Player của Photon
 
     [Header("Info Panels")]
     public GameObject[] infoPanels; // 4 panel cho 4 avatar
@@ -27,6 +27,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         if (rightArrow) rightArrow.SetActive(false);
     }
 
+    // Thiết lập thông tin người chơi khi item này được khởi tạo trong danh sách
     public void SetPlayerInfo(Player _player)
     {
         playerName.text = _player.NickName;

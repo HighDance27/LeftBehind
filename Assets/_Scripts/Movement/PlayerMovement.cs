@@ -14,7 +14,7 @@ namespace TopDown.Movement
         [Header("Dodge Settings")]
         [SerializeField] private float dodgeDistance = 3f;
         [SerializeField] private float dodgeDuration = 0.2f;
-        [SerializeField] private Vector3 dodgeScale = new Vector3(0.2f, 0.2f, 1f);
+        [SerializeField] private Vector3 dodgeScale = new Vector3(1.2f, 1.2f, 1f);
         private Coroutine dodgeCoroutine;
 
         [Header("VFX")]
@@ -77,7 +77,6 @@ namespace TopDown.Movement
         {
             canMove = false;
             currentInput = Vector3.zero; //Reset hướng di chuyển để đứng yên
-
         }
 
         public void HandleDodgeInput()
@@ -89,7 +88,6 @@ namespace TopDown.Movement
 
             dodgeCoroutine = StartCoroutine(DodgeRoutine());
         }
-
 
         private IEnumerator DodgeRoutine()
         {
@@ -108,7 +106,7 @@ namespace TopDown.Movement
 
             if (dodgeDustPrefab)
             {
-                Quaternion rot = Quaternion.LookRotation(Vector3.forward, -direction); //leave the vfx at the back of Player
+                Quaternion rot = Quaternion.LookRotation(Vector3.forward, -direction); //rải hiệu ứng sau lưng Player
                 Instantiate(dodgeDustPrefab, transform.position, rot);
             }
 
@@ -138,7 +136,8 @@ namespace TopDown.Movement
             while (t < 1f)
             {
                 t += Time.deltaTime / dodgeDuration;
-                transform.position = Vector3.Lerp(startPos, targetPos, t);
+                Vector3 newPos = Vector3.Lerp(startPos, targetPos, t);
+                GetComponent<Rigidbody2D>().MovePosition(newPos);
 
                 //phóng to sprite
                 if (torso) torso.localScale = Vector3.Lerp(originalScale, dodgeScale, t);

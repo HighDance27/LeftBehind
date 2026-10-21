@@ -80,8 +80,10 @@ public class WeaponSystem : MonoBehaviour
             var weapon = w.GetComponent<Weapon>();
             if (weapon == null) continue;
 
-            weapon.TotalAmmo.Value = weapon.initialAmmo;
-            weapon.CurrentAmmoInClip.Value = Mathf.Min(weapon.clipSize, weapon.initialAmmo);
+            int startingClipAmmo = Mathf.Min(weapon.clipSize, weapon.initialAmmo);
+
+            weapon.CurrentAmmoInClip.Value = startingClipAmmo;
+            weapon.TotalAmmo.Value = weapon.initialAmmo - startingClipAmmo;
         }
 
         SaveAllWeaponsAmmoToPrefs();

@@ -16,8 +16,8 @@ namespace TopDown.UI
 
         private MPEnemyManager _em;
         private int _alive;
-        private int _total;
-        private int _maxPossible;
+        private int _total; //tổng số Enemy đã spawn trong zone
+        private int _maxPossible;  //tổng số Enemy trong scene
         private bool _actClearedShown;
 
         private void Awake()

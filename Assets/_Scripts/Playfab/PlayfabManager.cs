@@ -31,6 +31,7 @@ public class PlayfabManager : MonoBehaviour
 
     public static PlayfabManager Instance;
     public bool IsLoggingOut { get; private set; } = false;
+    public bool IsReconnecting = false;
 
     private void Awake()
     {
@@ -41,12 +42,17 @@ public class PlayfabManager : MonoBehaviour
         }
         else
         {
+            // Cập nhật các tham chiếu cho UI từ Instance cũ sang mới (this)
             Instance.loginEmailInput = this.loginEmailInput;
             Instance.loginPasswordInput = this.loginPasswordInput;
             Instance.registerDisplayNameInput = this.registerDisplayNameInput;
             Instance.registerEmailInput = this.registerEmailInput;
             Instance.registerPasswordInput = this.registerPasswordInput;
             Instance.messageText = this.messageText;
+
+            Instance.loginUIElements = this.loginUIElements;
+            Instance.registerPanel = this.registerPanel;
+            Instance.backButton = this.backButton;
 
             Destroy(gameObject);
         }
@@ -321,6 +327,7 @@ public class PlayfabManager : MonoBehaviour
 
     void OnHeartbeatError(PlayFabError error)
     {
+        if (IsReconnecting) return;
         // HttpCode == 0 thường có nghĩa là không kết nối được tới server
         bool isNetworkError = error.HttpCode == 0 ||
                               error.Error == PlayFabErrorCode.ServiceUnavailable ||
@@ -328,15 +335,15 @@ public class PlayfabManager : MonoBehaviour
         if (isNetworkError)
         {
             Debug.LogWarning("Heartbeat Failed: " + error.GenerateErrorReport());
-            ForceLogout();
+            return;
         }
         else
         {
-            // Nếu là lỗi logic khác (ví dụ: Session hết hạn), cũng nên logout để an toàn
             Debug.LogError("Logic error: " + error.GenerateErrorReport());
 
-            // lỗi session hết hạn cũng đá ra luôn
-            if (error.Error == PlayFabErrorCode.NotAuthorized || error.Error == PlayFabErrorCode.InvalidSessionTicket)
+            if (error.Error == PlayFabErrorCode.NotAuthorized ||
+             error.Error == PlayFabErrorCode.InvalidSessionTicket ||
+             error.Error == PlayFabErrorCode.OverLimit)
             {
                 ForceLogout();
             }
@@ -399,5 +406,30 @@ public class PlayfabManager : MonoBehaviour
             PlayFabClientAPI.UpdateUserData(request, null, null);
         }
     }
+    #region Leaderboards
+    // Gửi điểm hạ gục lên PlayFab
+    public void SendKillScore(int scoreToAdd = 1)
+    {
+        if (!PlayFabClientAPI.IsClientLoggedIn()) return;
 
+        var request = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate>
+        {
+            new StatisticUpdate
+            {
+                StatisticName = "TotalEnemyKilled",
+                Value = scoreToAdd // Vì Aggregation là SUM, gửi 1 nó sẽ tự cộng thêm 1
+            }
+        }
+        };
+
+        PlayFabClientAPI.UpdatePlayerStatistics(request, OnUpdateScoreSuccess, OnError);
+    }
+
+    void OnUpdateScoreSuccess(UpdatePlayerStatisticsResult result)
+    {
+        Debug.Log("Đã cập nhật điểm hạ gục lên PlayFab!");
+    }
+    #endregion
 }

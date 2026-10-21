@@ -117,6 +117,7 @@ public class BossShooting : MonoBehaviour
                 p.transform.SetPositionAndRotation(firePoint.position, bulletRotation);
                 p.gameObject.SetActive(true);
             }
+            p.SetOwner(gameObject);
             p.BossShoot();
         }
 
@@ -141,7 +142,7 @@ public class BossShooting : MonoBehaviour
                 p.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
                 p.gameObject.SetActive(true);
             }
-
+            p.SetOwner(gameObject);
             p.BossShoot();
             PlayMuzzleAndSound();
 

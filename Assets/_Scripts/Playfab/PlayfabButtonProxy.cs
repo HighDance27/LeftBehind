@@ -15,4 +15,22 @@ public class PlayfabButtonProxy : MonoBehaviour
         if (PlayfabManager.Instance != null)
             PlayfabManager.Instance.RegisterButton();
     }
+
+    public void ResetPassword()
+    {
+        if (PlayfabManager.Instance != null)
+            PlayfabManager.Instance.ResetPasswordButton();
+    }
+
+    public void OpenRegisterPanel()
+    {
+        if (PlayfabManager.Instance != null)
+            PlayfabManager.Instance.OpenRegisterPanel();
+    }
+
+    public void OpenLoginPanel()
+    {
+        if (PlayfabManager.Instance != null)
+            PlayfabManager.Instance.OpenLoginPanel();
+    }
 }

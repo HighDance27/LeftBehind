@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 using System.Collections.Generic;
+using Photon.Realtime;
 
-public class AccountManager : MonoBehaviour
+public class AccountManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField usernameInput;
     public Button resetPassword;
@@ -23,11 +24,20 @@ public class AccountManager : MonoBehaviour
 
     public void OnClickSave()
     {
+        // Kiểm tra mạng trước khi gửi lệnh
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            ShowMessage("No Internet Connection!");
+            StartCoroutine(KickToMenuRoutine());
+            return;
+        }
+
         if (!string.IsNullOrEmpty(usernameInput.text))
         {
             if (usernameInput.text.Length < 3)
             {
                 ShowMessage("Username too short!");
+                return;
             }
 
             var request = new UpdateUserTitleDisplayNameRequest { DisplayName = usernameInput.text };
@@ -68,7 +78,20 @@ public class AccountManager : MonoBehaviour
 
     void OnError(PlayFabError error)
     {
-        ShowMessage(error.ErrorMessage);
+        // HttpCode == 0 là không kết nối được tới server 
+        bool isNetworkError = error.HttpCode == 0 ||
+                              error.Error == PlayFabErrorCode.ServiceUnavailable ||
+                              error.Error == PlayFabErrorCode.ConnectionError;
+
+        if (isNetworkError)
+        {
+            ShowMessage("Connection Error! Returning to Menu...");
+            StartCoroutine(KickToMenuRoutine());
+        }
+        else
+        {
+            ShowMessage(error.ErrorMessage);
+        }
     }
 
     void ShowMessage(string msg)
@@ -115,5 +138,35 @@ public class AccountManager : MonoBehaviour
     void OnResetDataSuccess(UpdateUserDataResult result)
     {
         Debug.Log("[PlayFab] Dữ liệu đã được đưa về màn 1.");
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        // Nếu tự bấm, return
+        if (cause == DisconnectCause.DisconnectByClientLogic) return;
+
+        Debug.LogWarning("Mất kết nối tại Account Screen: " + cause);
+        ShowMessage("Connection Lost! Returning to Menu...");
+
+        // Đợi 2 giây cho người chơi đọc thông báo rồi đá về
+        StartCoroutine(KickToMenuRoutine());
+    }
+
+    IEnumerator KickToMenuRoutine()
+    {
+        if (usernameInput) usernameInput.interactable = false;
+        if (resetPassword) resetPassword.interactable = false;
+
+        yield return new WaitForSeconds(2f);
+
+        // Gọi ForceLogout bên PlayfabManager để dọn dẹp sạch sẽ
+        if (PlayfabManager.Instance != null)
+        {
+            PlayfabManager.Instance.ForceLogout();
+        }
+        else
+        {
+            SceneManager.LoadScene("_MainMenu");
+        }
     }
 }

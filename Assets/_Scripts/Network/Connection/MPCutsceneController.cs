@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,25 +12,26 @@ public class MPCutsceneController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        //chỉ có Master thấy và bấm được nút Play
+        // Luôn lắng nghe sự kiện nút bấm ngay từ đầu
+        if (nextButton != null)
+        {
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(OnClickNext);
+        }
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (nextButton != null)
-            {
-                nextButton.gameObject.SetActive(true);
-                nextButton.onClick.AddListener(OnClickNext);
-            }
-
-            if (waitForHostText != null)
-                waitForHostText.SetActive(false);
+            if (nextButton != null) nextButton.gameObject.SetActive(true);
+            if (waitForHostText != null) waitForHostText.SetActive(false);
         }
         else
         {
-            if (nextButton != null)
-                nextButton.gameObject.SetActive(false);
-
-            if (waitForHostText != null)
-                waitForHostText.SetActive(true);
+            if (nextButton != null) nextButton.gameObject.SetActive(false);
+            if (waitForHostText != null) waitForHostText.SetActive(true);
         }
     }
 
@@ -62,13 +64,23 @@ public class MPCutsceneController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        // Bây giờ mới load scene Lobby cục bộ trên máy người chơi
+        //load scene Lobby cục bộ trên máy người chơi
         SceneManager.LoadScene("Lobby");
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        UpdateUI();
     }
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
         Debug.LogWarning("Cutscene Disconnect: " + cause);
+
+        if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsReconnecting)
+        {
+            return;
+        }
 
         // Nếu PlayFab đang xử lý logout, return
         if (PlayfabManager.Instance != null && PlayfabManager.Instance.IsLoggingOut) return;

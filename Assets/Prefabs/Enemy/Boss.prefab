@@ -394,7 +394,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 367424131
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &2150605858077745914
 MonoBehaviour:
@@ -499,9 +499,8 @@ GameObject:
   - component: {fileID: 1554720903272659540}
   - component: {fileID: 1104366431259492218}
   - component: {fileID: 817444761905519819}
-  - component: {fileID: 4968581683545169769}
   - component: {fileID: 4491530524327173011}
-  - component: {fileID: 8874402212697589338}
+  - component: {fileID: 5323895991949137778}
   m_Layer: 11
   m_Name: Boss
   m_TagString: Untagged
@@ -551,7 +550,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -603,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b386512e9fc281141972d4d6b5d12fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAwarenessDistance: 2
+  _playerAwarenessDistance: 5
   _player: {fileID: 0}
 --- !u!95 &6644646048829401330
 Animator:
@@ -641,16 +640,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 1000
   maximumHealth: 1000
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 45a99b383421b23408adf3b7936d795d, type: 3}
   dieSound: {fileID: 8300000, guid: 9c6d983a433fc014fb37333b69835c5a, type: 3}
   wallSFX: {fileID: 0}
   OnDied:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 4491530524327173011}
+        m_TargetAssemblyTypeName: BossEnemyMovement, Assembly-CSharp
+        m_MethodName: PlayDeathAnimation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -695,10 +696,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
-        m_MethodName: PlayDeathAnimation
-        m_Mode: 1
+      - m_Target: {fileID: 5323895991949137778}
+        m_TargetAssemblyTypeName: BossShooting, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -707,8 +708,8 @@ MonoBehaviour:
           m_StringArgument: IsDead
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4968581683545169769}
-        m_TargetAssemblyTypeName: EnemyShooting, Assembly-CSharp
+      - m_Target: {fileID: 4491530524327173011}
+        m_TargetAssemblyTypeName: BossEnemyMovement, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -749,6 +750,9 @@ MonoBehaviour:
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
+  OnArmorChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1104366431259492218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,31 +778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2eb02bb6fdcae4bb250b4569e6d34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4968581683545169769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6306980057566425770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f82b860c747d59b4296b8392488792a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
-  projectilePrefab: {fileID: 5257218623787866225, guid: 6d8c56e7b39788d4fbd13b541435f128, type: 3}
-  firePoint: {fileID: 6339543126537288501}
-  muzzleFlashAnimator: {fileID: 4389117693692845664}
-  shotSound: {fileID: 8300000, guid: f1ef0ad56d7cccd4e88ea4fed4c2936a, type: 3}
-  isShotgun: 0
-  pelletCount: 5
-  fireRate: 1
-  poolSize: 6
-  spreadAngle: 15
-  requireLineOfSight: 1
-  losObstacles:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &4491530524327173011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,8 +796,8 @@ MonoBehaviour:
   pointB: {fileID: 0}
   startAtPointA: 1
   waitAtPoint: 1
-  minimapIcon: {fileID: 0}
---- !u!114 &8874402212697589338
+  minimapIcon: {fileID: 8632735794305856872}
+--- !u!114 &5323895991949137778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -827,16 +806,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6306980057566425770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea2ff71c3b928174788f8c5a10dffba2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b16746c319bf46439add57c8e51a2d9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossEnemyMovement
-  _speed: 2
-  _rotationSpeed: 720
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
-  startAtPointA: 1
-  waitAtPoint: 1
-  minimapIcon: {fileID: 8632735794305856872}
+  m_EditorClassIdentifier: Assembly-CSharp::BossShooting
+  projectilePrefab: {fileID: 5257218623787866225, guid: 3c32e508f8cb8f542b84589667a8d073, type: 3}
+  firePoint: {fileID: 6339543126537288501}
+  muzzleFlashAnimator: {fileID: 4389117693692845664}
+  shotSound: {fileID: 8300000, guid: f1ef0ad56d7cccd4e88ea4fed4c2936a, type: 3}
+  cooldown: 1
+  fireMode: 0
+  poolSize: 60
+  shotgunBullets: 5
+  shotgunSpreadAngle: 15
+  machineGunBullets: 10
+  machineGunInterval: 0.05
 --- !u!1 &8632735794305856872
 GameObject:
   m_ObjectHideFlags: 0

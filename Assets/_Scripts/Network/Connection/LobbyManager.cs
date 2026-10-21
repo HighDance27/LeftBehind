@@ -19,6 +19,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject roomPanel;
     public GameObject editPanel;
     public GameObject levelPanel;
+    public GameObject leaderboardPanel;
 
     public Text roomName;
     public Text hostText;
@@ -35,6 +36,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     public GameObject playButton;
+
+    [Header("Leaderboard")]
+    public GameObject leaderboardPanel;
+    public GameObject leaderboardItemPrefab;
+    public Transform leaderboardContent;
 
     private void Awake()
     {
@@ -302,4 +308,74 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("AccountManagement");
     }
 
+<<<<<<< Updated upstream
+    public void OnClickCloseLeaderboard()
+    {
+        if (leaderboardPanel != null)
+        {
+            leaderboardPanel.SetActive(false);
+        }
+    }
+
 }
+=======
+    #region Leaderboards
+    public void OpenLeaderboard()
+    {
+        lobbyPanel.SetActive(false);
+        leaderboardPanel.SetActive(true);
+
+        GetLeaderboardData();
+    }
+
+    public void CloseLeaderboard()
+    {
+        leaderboardPanel.SetActive(false);
+        lobbyPanel.SetActive(true);
+    }
+
+    private void GetLeaderboardData()
+    {
+        // Xóa danh sách cũ trước khi load mới
+        foreach (Transform child in leaderboardContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "TotalEnemyKilled",
+            StartPosition = 0,
+            MaxResultsCount = 10 // Lấy top 10
+        };
+
+        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
+    }
+
+    private void OnLeaderboardGet(GetLeaderboardResult result)
+    {
+        // Duyệt qua từng người chơi trong danh sách trả về từ PlayFab
+        foreach (var item in result.Leaderboard)
+        {
+            // Tạo một dòng mới trong UI từ Prefab và bỏ vào khung chứa
+            GameObject newItem = Instantiate(leaderboardItemPrefab, leaderboardContent);
+            // Lấy script quản lý dòng đó để nạp dữ liệu
+            LeaderboardItem script = newItem.GetComponent<LeaderboardItem>();
+
+            if (script != null)
+            {
+                // Nếu chưa đặt tên, hiển thị ID
+                string displayName = string.IsNullOrEmpty(item.DisplayName) ? item.PlayFabId : item.DisplayName;
+                // Truyền dữ liệu vào script UI để hiển thị
+                script.SetLeaderboardInfo(item.Position, displayName, item.StatValue);
+            }
+        }
+    }
+
+    private void OnError(PlayFabError error)
+    {
+        Debug.LogError("Leaderboard Error: " + error.GenerateErrorReport());
+    }
+    #endregion
+}
+>>>>>>> Stashed changes

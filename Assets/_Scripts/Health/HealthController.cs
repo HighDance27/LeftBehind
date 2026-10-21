@@ -113,7 +113,7 @@ public class HealthController : MonoBehaviour
         }
         else
         {
-            // Vẫn phát âm thanh bị đau dù chỉ mất giáp (tùy chọn, có thể bỏ nếu muốn)
+            //Phát âm thanh khi mất giáp
             SoundManager.Instance?.PlaySound(hurtSound);
             OnDamaged.Invoke();
         }

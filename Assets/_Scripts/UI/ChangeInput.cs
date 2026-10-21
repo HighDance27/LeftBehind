@@ -11,13 +11,14 @@ public class ChangeInput : MonoBehaviour
     private void Start()
     {
         system = EventSystem.current;
-        firstInput.Select();
+        firstInput.Select(); //tự focus vào inputfield đầu tiên
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            //Tìm cái UI hiện đang được chọn. Sau đó tìm xem phía dưới nó có cái UI nào không
             Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
             if (next != null)
             {

@@ -35,12 +35,21 @@ public class MPPlayerController : MonoBehaviour
         Instantiate(fakeBulletPrefab, pos, rot);
     }
 
+    [PunRPC]
+    public void RPC_PlayFireSound()
+    {
+        // Kiểm tra xem đang cầm súng gì thì phát tiếng súng đó
+        if (weapons != null && weapons.EquippedWeapon != null)
+        {
+            weapons.EquippedWeapon.PlayShootingSound();
+        }
+    }
+
     public void Shoot()
     {
         // Only local player can shoot
         if (PhotonNetwork.IsConnected && !photonView.IsMine) return;
         weapons.EquippedWeapon.Shoot();
-
     }
 
     public void Reload()

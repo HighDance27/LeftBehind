@@ -42,7 +42,7 @@ namespace TopDown.Shooting
         [SerializeField] public int initialAmmo;
         [SerializeField] public int clipSize;
 
-        [SerializeField] private int poolSize = 30;
+        [SerializeField] private int poolSize = 50;
         private Projectile[] pool;
 
         private bool isHolding;
@@ -53,8 +53,12 @@ namespace TopDown.Shooting
 
         private void Awake()
         {
-            TotalAmmo.Value = initialAmmo;
-            CurrentAmmoInClip.Value = Mathf.Min(clipSize, initialAmmo);
+            int startingClipAmmo = Mathf.Min(clipSize, initialAmmo);
+
+            CurrentAmmoInClip.Value = startingClipAmmo;
+
+            // Số đạn dự trữ = Tổng ban đầu - Số đã nạp vào băng
+            TotalAmmo.Value = initialAmmo - startingClipAmmo;
 
             cooldownTimer = fireRateCooldown;
             shotgunPumpSFX = GetComponent<ShotgunPumpSFX>();
@@ -143,6 +147,7 @@ namespace TopDown.Shooting
 
             return null;
         }
+
         public void Shoot()
         {
             if (UIManager.IsCleared) return;

@@ -40,6 +40,7 @@ public class LevelMenu : MonoBehaviour
             PlayerPrefs.DeleteKey("HP_Saved");
             PlayerPrefs.DeleteKey("HP_SavedMax");
             PlayerPrefs.DeleteKey("Ammo_Count");
+            PlayerPrefs.DeleteKey("Armor_Saved");
             Debug.Log("Reset dữ liệu vì chơi lại màn cũ.");
         }
         SceneManager.LoadScene(sceneToLoad);

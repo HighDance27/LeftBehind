@@ -168,7 +168,7 @@ namespace TopDown.Shooting
                 if (mpHealth.CurrentHealth > 0)
                 {
                     SpawnEffect(enemyHitEffect, transform.position, Quaternion.LookRotation(lookDir));
-                    mpHealth.TakeDamage(damage);
+                    mpHealth.TakeDamage(damage, OwnerID); //truyền OwnerID của Player bắn
                     Deactivate();
                     return;
                 }

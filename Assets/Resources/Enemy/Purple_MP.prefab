@@ -614,6 +614,8 @@ MonoBehaviour:
   isEnemy: 1
   currentHealth: 20
   maximumHealth: 20
+  currentArmor: 0
+  maximumArmor: 0
   hurtSound: {fileID: 8300000, guid: 45a99b383421b23408adf3b7936d795d, type: 3}
   dieSound: {fileID: 8300000, guid: 9c6d983a433fc014fb37333b69835c5a, type: 3}
   wallSFX: {fileID: 0}
@@ -723,6 +725,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnArmorChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2531088293360549631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,7 +802,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 367424131
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &7221780559461579322
 MonoBehaviour:
@@ -852,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPEnemyHPBar
   healthBarForegroundImage: {fileID: 8818985596562933152}
+  armorBarForegroundImage: {fileID: 0}
   target: {fileID: 214425618765819397}
   offset: {x: 0, y: 0.3, z: 0}
   camera: {fileID: 3838587589286972160, guid: fb9fcac8c5741fc4880e030ceb7f05f8, type: 3}

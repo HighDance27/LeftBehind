@@ -16,9 +16,18 @@ namespace TopDown.Movement
 
         private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
         {
-            // Mathf.Atan2: Hàm lượng giác tính góc dựa trên sự chênh lệch tọa độ Y và X
-            // Nó trả về giá trị đơn vị Radian, sau đó nhân với Mathf.Rad2Deg để đổi sang đơn vị Độ (0-360)
+            //Nếu tính tay hàm Atan2:
+            // BƯỚC 1: Tính độ chênh lệch giữa a và b
+            // deltaY = a.y - b.y | deltaX = a.x - b.x
+
+            // BƯỚC 2: xét dấu của cả x và y sau khi trừ:
+            // Nếu x > 0: Góc = Tan-1(y/x)
+            // Nếu x < 0: Góc = Tan-1(y/x) + 180° (khi y >= 0) hoặc - 180° (khi y < 0)
+            // Nếu x = 0: Góc = 90° (y > 0) hoặc -90° (y < 0)
+
+            // BƯỚC 3: Nhân với Mathf.Rad2Deg (180/Pi ≈ 57.29) để đổi từ Radian sang Độ (-180 đến 180)
             return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+
         }
     }
 }

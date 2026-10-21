@@ -180,6 +180,7 @@ public class MPEnemyMovement : MonoBehaviour
 
         if (_playerAwareness.AwareOfPlayer)
         {
+            // Tính căn bậc hai của tổng bình phương độ lệch giữa hai trục X và Y: sqrt((x2-x1)^2 + (y2-y1)^2)
             float dist = Vector2.Distance(transform.position, _playerAwareness.currentTarget.position);
 
             if (dist < minChaseDistance)

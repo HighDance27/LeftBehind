@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using TopDown.CameraControl;
 using UnityEngine;
 
-public class SpawnPlayers : MonoBehaviour
+public class SpawnPlayers : MonoBehaviourPunCallbacks
 {
     public GameObject[] playerPrefabs;
     public CameraController cameraController;
@@ -31,24 +32,33 @@ public class SpawnPlayers : MonoBehaviour
         GameObject player = PhotonNetwork.Instantiate(playerToSpawn.name, randomPosition, Quaternion.identity);
 
         PhotonView pv = player.GetComponent<PhotonView>();
-        if (pv != null && pv.IsMine)
-        {
-            if (cameraController != null)
-            {
-                cameraController.SetTarget(player.transform);
-            }
-            else
-            {
-                Debug.LogError("Lỗi: Bạn chưa kéo thả Camera vào SpawnPlayers trên Inspector!");
-            }
+        // if (pv != null && pv.IsMine)
+        // {
+        //     if (cameraController != null)
+        //     {
+        //         cameraController.SetTarget(player.transform);
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("Lỗi: chưa gán Camera vào SpawnPlayers trên Inspector!");
+        //     }
 
-            // Tìm UI Health Bar trong Scene
-            MPHealthUI healthUI = FindObjectOfType<MPHealthUI>();
-            if (healthUI != null)
-            {
-                // Lấy máu của nhân vật vừa sinh ra và đưa cho UI
-                healthUI.Initialize(player.GetComponent<MPHealthController>());
-            }
-        }
+        //     // Tìm UI Health Bar trong Scene
+        //     MPHealthUI healthUI = FindObjectOfType<MPHealthUI>();
+        //     if (healthUI != null)
+        //     {
+        //         // Lấy máu của nhân vật vừa sinh ra và đưa cho UI
+        //         healthUI.Initialize(player.GetComponent<MPHealthController>());
+        //     }
+        // }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+
+        // Xóa khỏi danh sách ActivePlayers để HUD không bị lỗi
+        // Dùng RemoveAll với điều kiện: null hoặc là photonView của người vừa thoát
+        ActivePlayers.RemoveAll(p => p == null || p.photonView.CreatorActorNr == otherPlayer.ActorNumber);
     }
 }

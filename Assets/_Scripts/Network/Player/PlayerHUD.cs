@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using PlayFab;
 using System.Collections.Generic;
 using PlayFab.ClientModels;
+using Photon.Realtime;
 
 public class PlayerHUD : MonoBehaviourPunCallbacks
 {
@@ -32,6 +33,11 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
     public static bool IsCleared { get; private set; }
     public static bool IsGameOver { get; private set; }
 
+    [Header("Scoreboard")]
+    [SerializeField] private GameObject scoreboardPanel;
+    [SerializeField] private Transform scoreboardContainer;
+    [SerializeField] private GameObject scoreboardItemPrefab;
+
     private bool _checkingAllDead;
 
     [Header("Settings")]
@@ -46,6 +52,9 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
 
     [Header("Debug Info")]
     [SerializeField] private Text pingText;
+
+    [SerializeField] private GameObject disconnectPanel;
+    private bool isUserRequestedLeave = false;
 
     private void Awake()
     {
@@ -69,6 +78,7 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
         if (waitForOthersText) waitForOthersText.SetActive(false);
         if (restartButton)
             restartButton.SetActive(PhotonNetwork.IsMasterClient);
+        if (disconnectPanel) disconnectPanel.SetActive(false);
 
         IsPaused = false;
         IsCleared = false;
@@ -91,10 +101,31 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
 
         if (soundSlider) soundSlider.onValueChanged.AddListener(OnSoundVolumeChanged);
         if (musicSlider) musicSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+
+        ResetLocalScore();
     }
 
     private void Update()
     {
+        if (disconnectPanel != null && disconnectPanel.activeSelf) return;
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (scoreboardPanel != null)
+            {
+                scoreboardPanel.SetActive(true);
+                UpdateScoreboard(); // Cập nhật dữ liệu ngay khi vừa bấm nút
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            if (scoreboardPanel != null)
+            {
+                scoreboardPanel.SetActive(false);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (pauseScreen != null && pauseScreen.activeInHierarchy)
@@ -124,6 +155,44 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
             weaponIcons[i].SetActive(i == weaponIndex - 1);
     }
 
+    #region Scoreboard
+    void UpdateScoreboard()
+    {
+        // Xóa các dòng cũ
+        foreach (Transform child in scoreboardContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Tạo dòng mới cho từng người chơi trong phòng
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            GameObject item = Instantiate(scoreboardItemPrefab, scoreboardContainer);
+            Scoreboard script = item.GetComponent<Scoreboard>();
+            if (script != null)
+            {
+                script.Initialize(player);
+            }
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        // Nếu bảng điểm đang mở thì cập nhật lại ngay
+        if (scoreboardPanel != null && scoreboardPanel.activeSelf)
+        {
+            UpdateScoreboard();
+        }
+    }
+
+    private void ResetLocalScore()
+    {
+        //reset property "Kills" của chính mình thành 0
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+        props["Kills"] = 0;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+    #endregion
     public void GameOver()
     {
         int alivePlayers = 0;
@@ -310,6 +379,8 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.InRoom)
             {
+                // chủ động muốn thoát
+                isUserRequestedLeave = true;
                 PhotonNetwork.LeaveRoom();
             }
             else
@@ -326,6 +397,27 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        //xử lý back button
+        if (isUserRequestedLeave)
+        {
+            SceneManager.LoadScene("Lobby");
+            return;
+        }
+        //Kiểm tra mất mạng
+        StartCoroutine(CheckIfDisconnectRoutine());
+    }
+
+    private IEnumerator CheckIfDisconnectRoutine()
+    {
+        // Chờ 1 chút để OnDisconnected kịp chạy
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        // Nếu disconnectPanel hiện. Dừng Coroutine
+        if (disconnectPanel != null && disconnectPanel.activeSelf)
+        {
+            yield break;
+        }
+
         SceneManager.LoadScene("Lobby");
     }
 
@@ -337,15 +429,52 @@ public class PlayerHUD : MonoBehaviourPunCallbacks
         // Nếu người chơi tự bấm Back, return
         if (cause == Photon.Realtime.DisconnectCause.DisconnectByClientLogic) return;
 
-        Debug.LogWarning("Gameplay Disconnect: " + cause);
+        if (disconnectPanel != null)
+        {
+            disconnectPanel.SetActive(true);
+        }
 
+        if (pauseScreen) pauseScreen.SetActive(false);
+        if (settingUI) settingUI.SetActive(false);
+        StartCoroutine(ReturnToMenuRoutine());
+    }
+
+    private IEnumerator ReturnToMenuRoutine()
+    {
+        yield return new WaitForSeconds(5f);
         if (PlayfabManager.Instance != null)
         {
             PlayfabManager.Instance.ForceLogout();
         }
+        else
+        {   //fallback
+            SceneManager.LoadScene("_MainMenu");
+        }
+    }
 
-        // đang chơi mà mất mạng, về menu
-        SceneManager.LoadScene("_MainMenu");
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        //nếu mình là master mới
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Đang ở màn hình Game Over
+            if (IsGameOver)
+            {
+                // Hiện nút Restart cho Master mới
+                if (restartButton) restartButton.SetActive(true);
+
+                // Ẩn waitForOthersText
+                if (waitForOthersText) waitForOthersText.SetActive(false);
+            }
+
+            // Đang ở màn hình Clear
+            if (IsCleared)
+            {
+                if (nextLevelButton) nextLevelButton.SetActive(true);
+
+                if (waitForHost) waitForHost.SetActive(false);
+            }
+        }
     }
 
     public void NextLevel()

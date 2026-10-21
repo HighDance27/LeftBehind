@@ -55,11 +55,17 @@ public class MPAwareness : MonoBehaviour
         }
 
         Mover closestPlayer = null;
-        float closestDistance = Mathf.Infinity;
+        float closestDistance = Mathf.Infinity; //+ vô cùng để tìm được Player gần hơn
 
         //duyệt qua tất cả Players
         foreach (Mover player in players)
         {
+            MPHealthController hp = player.GetComponent<MPHealthController>();
+            if (hp != null && hp.CurrentHealth <= 0)
+            {
+                continue;
+            }
+
             float dist = Vector2.Distance(transform.position, player.transform.position);
 
             if (dist < closestDistance)
@@ -72,6 +78,7 @@ public class MPAwareness : MonoBehaviour
         if (closestPlayer == null)
         {
             currentTarget = null;
+            targetIsDead = true;
             return;
         }
 
@@ -90,7 +97,6 @@ public class MPAwareness : MonoBehaviour
                 currentTargetHealth.OnDied.AddListener(HandleTargetDied);
         }
     }
-
 
     private void HandleTargetDied()
     {

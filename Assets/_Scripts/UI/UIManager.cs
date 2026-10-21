@@ -109,7 +109,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     public void SceneComplete()
     {
         if (clearMode == ClearScreenMode.Act)
@@ -153,12 +152,13 @@ public class UIManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         SoundManager.Instance.PlaySound(gameOverSound);
     }
+
     public void Restart()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         bool isChapter;
 
-        if (currentIndex % 3 == 0 || currentIndex % 3 == 2)
+        if (currentIndex % 3 == 0 || currentIndex % 3 == 2)//hồi 2 và 3 của các màn để lưu máu tại checkpoint
         {
             isChapter = true;
         }
